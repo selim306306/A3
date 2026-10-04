@@ -1,0 +1,32 @@
+{
+ "name": "مكتبة الأمين الذكية",
+ "short_name": "مكتبة الأمين",
+ "description": "مكتبة مدرسة الأمين الابتدائية",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "dir": "rtl",
+ "lang": "ar",
+ "theme_color": "#E11D2E",
+ "background_color": "#FFF5F3",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
