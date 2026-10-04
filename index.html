@@ -558,8 +558,8 @@ async function tabHTML(t){
     <div class="card"><h3>المسابقات الحالية</h3>${comps.map(c=>compItem(c,true)).join('')||'<small>لا توجد مسابقات</small>'}</div>`;
   }
   if(t==='pp') return await ppHTML();
-  if(t==='ai') return soonCard('Ai',['متابعة الأخبار وتحليلها وإعادة صياغتها','صندوق المراجعة قبل النشر','متابعة الإعارات المتأخرة والتقارير التلقائية','التواصل معك على تيليجرام'],'المرحلة الثالثة');
-  if(t==='ap') return soonCard('API والربط',['اختيار النموذج وإدخال المفتاح وتجربة الاتصال','حد الإنفاق بالدولار','ربط تيليجرام وواتساب وغيرهما'],'المرحلتين الثانية والثالثة');
+  if(t==='ai') return await aiHTML();
+  if(t==='ap') return await apHTML();
   if(t==='st'){
     const s = await loadSettings(true);
     return `<form class="card" data-form="settings"><h3>إعدادات الموقع</h3><div class="f2">
@@ -786,6 +786,89 @@ document.addEventListener('change', async e=>{
   enCount(); toast(ok ? 'تمت إضافة '+nf(ok)+' عينة'+(bad?' وتعذّر '+nf(bad):'') : 'لم يتم العثور على وجه واضح في الصور');
 });
 
+
+/* ================= Ai: الوكيل ================= */
+async function fn(action){
+  await fresh();
+  let r, j = {};
+  try{ r = await fetch(SB_URL+'/functions/v1/agent',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+session.access_token,'Content-Type':'application/json'},body:JSON.stringify({action})}); }
+  catch(e){ throw new Error('تعذّر الوصول لدالة Ai. تأكد أنها منشورة في Supabase (اسمها agent) وأن الإنترنت يعمل'); }
+  try{ j = await r.json(); }catch(e){}
+  if(r.status===404) throw new Error('دالة Ai (agent) غير منشورة بعد في Supabase');
+  if(r.status===401) throw new Error('رفضت الدالة الطلب. تأكد أن خيار Verify JWT مقفول لدالة agent');
+  if(!r.ok && !j.error) throw new Error('خطأ في الدالة ('+r.status+')');
+  return j;
+}
+const needSQL = e => /ai_settings|sources|news_items|agent_|schema cache|does not exist|relation/i.test(e.message||'');
+const sqlCard = () => `<div class="card"><h3>تجهيز قاعدة البيانات</h3><div class="note">جداول Ai لم تُنشأ بعد. افتح ملف <b>phase3-sql.md</b> وشغّل «الجزء 1» في SQL Editor، ثم ارجع هنا.</div></div>`;
+function pendItem(n){
+  return `<article class="news"><div class="date"><b>${esc(n.category||'عام')}</b><span>${nf(n.relevance||0)}</span></div><div style="flex:1;min-width:0"><h3>${esc(n.draft_title||n.title)}</h3><p>${esc(n.summary||'')}</p>
+  <small style="color:var(--muted)">${esc((n.sources&&n.sources.name)||'مشاركة')} ${safeUrl(n.url)?`· <a class="lnk" href="${esc(n.url)}" target="_blank" rel="noopener">المصدر</a>`:''}</small>
+  <div class="acts" style="margin-top:8px"><button class="btn red sm" data-act="news-pub" data-id="${n.id}">نشر</button><button class="btn line sm" data-act="news-edit" data-id="${n.id}">تعديل ونشر</button><button class="btn line sm" data-act="news-ign" data-id="${n.id}">تجاهل</button></div></div></article>`;
+}
+async function publishNews(id, over){
+  const it = (S.pend||[]).find(x=>x.id===id); if(!it) throw new Error('الخبر غير موجود');
+  const title = ((over && over.title) || it.draft_title || it.title).trim().slice(0,150);
+  const body = ((over && over.body) || it.draft_body || it.summary || '').trim() || null;
+  const ann = await api('announcements',{method:'POST',body:{title,body,published:true,source_url:safeUrl(it.url)||null},prefer:'return=representation'});
+  await api('news_items?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:{status:'published',announcement_id:ann[0].id,decided_at:new Date().toISOString()}});
+  S.news = null;
+}
+async function aiHTML(){
+  let set, pend, inbox, srcs, logs;
+  try{
+    [set, pend, inbox, srcs, logs] = await Promise.all([
+      api('ai_settings?select=*&id=eq.1'),
+      api('news_items?select=*,sources(name)&status=eq.pending&order=created_at.desc&limit=50'),
+      api('agent_inbox?select=*&status=eq.open&order=created_at.desc&limit=20'),
+      api('sources?select=*&order=created_at.desc&limit=100'),
+      api('agent_log?select=*&order=created_at.desc&limit=15')]);
+  }catch(e){ if(needSQL(e)) return sqlCard(); throw e; }
+  const a = set[0] || {}; S.ai = a; S.pend = pend; S.srcs = srcs; S.inbox = inbox;
+  return `<div class="card"><div class="head" style="margin-bottom:8px"><h3 style="margin:0">حالة Ai</h3><span class="pill ${a.paused?'wait':'on'}">${a.paused?'متوقف مؤقتًا':'يعمل'}</span></div>
+    <div class="kp" style="margin-bottom:8px"><div><b>${nf(pend.length)}</b><span>أخبار بانتظارك</span></div><div><b>${nf(inbox.length)}</b><span>تنبيهات مفتوحة</span></div><div><b>${nf(srcs.filter(x=>x.enabled).length)}</b><span>مصادر مفعّلة</span></div><div><b>${nf(a.check_hours||3)} س</b><span>الفحص كل</span></div></div>
+    <div class="btns" style="margin-top:0"><button class="btn red sm" data-act="ai-run">تشغيل Ai الآن</button><button class="btn line sm" data-act="ai-test">اختبار الاتصال</button><button class="btn out sm" data-act="ai-pause">${a.paused?'استئناف':'إيقاف مؤقت'}</button></div>
+    <div id="airesult" class="note" style="margin-top:12px" hidden></div></div>
+  <div class="card"><h3>بانتظار قرارك</h3>${pend.map(pendItem).join('')||'<div class="empty"><b>لا توجد أخبار بانتظارك</b>عندما يجد Ai خبرًا مهمًا يظهر هنا ويصلك على تيليجرام.</div>'}
+    ${inbox.map(i=>`<div class="rw"><div style="flex:1;min-width:180px"><b>${esc(i.title)}</b><span class="s" style="white-space:pre-wrap">${esc(i.body||'')}</span></div><button class="mini" data-act="inbox-done" data-id="${i.id}">${ic('check')} تم</button></div>`).join('')}</div>
+  <div class="card"><h3>المصادر</h3>
+    ${srcs.map(x=>`<div class="rw"><div style="flex:1;min-width:170px"><b>${esc(x.name)}</b><span class="s">${x.kind==='rss'?'خلاصة RSS':'صفحة ويب'} · ${esc(x.url)}${x.last_checked_at?' · آخر فحص '+fmtDate(x.last_checked_at):''}</span>${x.last_error?`<span class="s" style="color:var(--red)">آخر خطأ: ${esc(x.last_error)}</span>`:''}</div>
+      <span class="acts"><button class="mini" data-act="src-toggle" data-id="${x.id}">${x.enabled?'إيقاف':'تفعيل'}</button><button class="mini" data-act="src-del" data-id="${x.id}" aria-label="حذف">${ic('trash')}</button></span></div>`).join('')||'<div class="empty"><b>لا توجد مصادر</b>أضف أول مصدر ليبدأ Ai المتابعة.</div>'}
+    <form data-form="source" style="margin-top:12px"><div class="f2"><div><label class="l">اسم المصدر *</label><input class="field" name="name" required maxlength="80" placeholder="مثال: موقع الوزارة"></div>
+      <div><label class="l">النوع</label><select class="field" name="kind"><option value="web">صفحة ويب أو قناة تيليجرام عامة</option><option value="rss">خلاصة RSS</option></select></div>
+      <div class="full"><label class="l">الرابط *</label><input class="field" name="url" type="url" required placeholder="https://..."></div></div><div class="note" style="margin-top:10px">لقناة تيليجرام عامة استخدم الرابط بالشكل https://t.me/s/اسم_القناة. بعض المواقع الحكومية قد تمنع الوصول من خارج مصر.</div>
+      <div class="btns" style="margin-top:0"><button class="btn red sm" type="submit">${ic('plus')} إضافة مصدر</button></div><div class="err" id="ferr" hidden></div></form></div>
+  <form class="card" data-form="aiset"><h3>إعدادات النشر والفحص</h3><div class="f2">
+    <div><label class="l">وضع النشر</label><select class="field" name="publish_mode"><option value="review" ${a.publish_mode==='review'?'selected':''}>مراجعتي قبل النشر (موصى به)</option><option value="auto_simple" ${a.publish_mode==='auto_simple'?'selected':''}>نشر تلقائي للأخبار القوية البسيطة</option></select></div>
+    <div><label class="l">الفحص كل (ساعات)</label><input class="field" type="number" name="check_hours" min="1" max="48" value="${a.check_hours||3}"></div>
+    <div><label class="l">أقل درجة صلة للعرض عليك (من ١٠)</label><input class="field" type="number" name="min_relevance" min="0" max="10" value="${a.min_relevance??6}"></div>
+    <label class="opt"><input type="checkbox" name="quiet_night" ${a.quiet_night?'checked':''}><div><b>عدم الإزعاج ليلًا</b><span>لا يرسل تيليجرام من ١١ مساءً إلى ٧ صباحًا</span></div></label></div>
+    <div class="note" style="margin-top:12px">النشر التلقائي لا يشمل أبدًا الأخبار المصنفة «قرار»، وتمر عليك دائمًا.</div>
+    <div class="btns"><button class="btn red" type="submit">حفظ</button></div></form>
+  <div class="card"><h3>سجل نشاط Ai</h3>${logs.map(l=>`<div class="rw"><div style="flex:1;min-width:150px"><b>${esc(l.action)}</b><span class="s">${esc(l.detail||'')}</span></div><span class="s">${fmtDate(l.created_at)} ${fmtTime(l.created_at)}</span>${l.ok?'':'<span class="pill wait">خطأ</span>'}</div>`).join('')||'<small>لا يوجد نشاط بعد.</small>'}</div>`;
+}
+async function apHTML(){
+  let set;
+  try{ set = await api('ai_settings?select=*&id=eq.1'); }catch(e){ if(needSQL(e)) return sqlCard(); throw e; }
+  const a = set[0] || {}; S.ai = a;
+  const st = await fn('status').catch(e=>({ok:false,error:e.message}));
+  const sec = st.secrets || {}, tick = v => v ? '<span class="pill on">موجود</span>' : '<span class="pill wait">غير موجود</span>';
+  return `<form class="card" data-form="apset"><h3>النموذج</h3>
+    <div class="note">أسماء النماذج بتتغير كل فترة. لو ظهر خطأ في «تجربة الاتصال» غيّر الاسم حسب آخر قائمة عند المزوّد.</div>
+    <div class="f2"><div><label class="l">المزوّد</label><select class="field" name="provider"><option value="gemini" ${a.provider==='gemini'?'selected':''}>Google Gemini</option><option value="anthropic" ${a.provider==='anthropic'?'selected':''}>Anthropic Claude</option></select></div>
+    <div><label class="l">حد طلبات الذكاء الاصطناعي يوميًا</label><input class="field" type="number" name="daily_call_limit" min="1" max="5000" value="${a.daily_call_limit||200}"></div>
+    <div><label class="l">نموذج تحليل الأخبار</label><input class="field" name="analysis_model" value="${esc(a.analysis_model)}" required></div>
+    <div><label class="l">نموذج المحادثة</label><input class="field" name="chat_model" value="${esc(a.chat_model)}" required></div>
+    <div class="full"><label class="l">نموذج الصوت المباشر (Live)</label><input class="field" name="live_model" value="${esc(a.live_model)}" required></div></div>
+    <div class="btns"><button class="btn red" type="submit">حفظ</button><button class="btn line" type="button" data-act="ai-test">تجربة الاتصال</button></div><div id="airesult" class="note" style="margin-top:12px" hidden></div></form>
+  <div class="card"><h3>المفاتيح والأسرار</h3>${st.ok===false&&st.error?`<div class="err">${esc(st.error)}</div>`:''}
+    <div class="rw"><b>مفتاح Gemini (GEMINI_API_KEY)</b>${tick(sec.gemini)}</div><div class="rw"><b>مفتاح Claude (ANTHROPIC_API_KEY)</b>${tick(sec.anthropic)}</div>
+    <div class="rw"><b>توكن بوت تيليجرام (TELEGRAM_BOT_TOKEN)</b>${tick(sec.telegram)}</div><div class="rw"><b>رمز ربط تيليجرام (TELEGRAM_PAIR_CODE)</b>${tick(sec.pair)}</div><div class="rw"><b>سر الجدولة (CRON_SECRET)</b>${tick(sec.cron)}</div>
+    <div class="note" style="margin-top:12px">المفاتيح لا تُكتب هنا ولا تُحفظ في الموقع. تضيفها من Supabase: Edge Functions ← Secrets، بنفس الأسماء الظاهرة.</div></div>
+  <div class="card"><h3>تيليجرام</h3><div class="rw" style="border-top:0"><div><b>حالة الربط</b><span class="s">${st.paired?'مربوط بحسابك':'غير مربوط. أرسل للبوت: /start ثم رمز الربط'}</span></div><span class="pill ${st.paired?'on':'wait'}">${st.paired?'مربوط':'غير مربوط'}</span></div>
+    <div class="btns"><button class="btn line sm" data-act="tg-test">إرسال رسالة تجريبية</button></div></div>`;
+}
+
 /* ================= المسار ================= */
 const ROUTES = {home:'الرئيسية',books:'الكتب',competitions:'المسابقات',announcements:'الإعلانات',visitors:'الزائرون',support:'الدعم الذكي',reception:'الاستقبال',dashboard:'لوحة التحكم'};
 const NAVICON = {home:'grid',books:'book',competitions:'trophy',announcements:'mega',visitors:'users',support:'chat',reception:'camera',dashboard:'star'};
@@ -858,6 +941,16 @@ document.addEventListener('click', async e=>{
     else if(act==='person-del'){ if(confirm('حذف هذا الشخص نهائيًا؟')){ await api('people?id=eq.'+encodeURIComponent(id),{method:'DELETE'}); render(); toast('تم الحذف'); } }
     else if(act==='en-cam'){ try{ await loadFace(); EN.stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false}); const v=$('#enVideo'); v.srcObject=EN.stream; await v.play(); const sn=$('[data-act=en-snap]'); if(sn) sn.disabled=false; }catch(err){ toast(camErr(err)); } }
     else if(act==='en-snap'){ const d = await faceOf($('#enVideo')); if(!d){ toast('لا يوجد وجه واضح، وجّه الوجه للكاميرا'); } else if(EN.samples.length>=10){ toast('وصلت للحد الأقصى (١٠ عينات)'); } else { EN.samples.push(d.map(x=>+x.toFixed(4))); enCount(); } }
+    else if(act==='ai-run'){ toast('جارٍ التشغيل...'); const r=await fn('run'); if(r.ok===false) throw new Error(r.error||'فشل التشغيل'); const c=r.collect||{}; toast('تم: فُحص '+nf(c.checked||0)+' مصدر، '+nf(c.added||0)+' خبر جديد'+((c.errors||[]).length?'، وفيه '+nf(c.errors.length)+' خطأ':'')); render(); }
+    else if(act==='ai-test'){ const out=$('#airesult'); if(out){ out.hidden=false; out.textContent='جارٍ الاختبار...'; } const r=await fn('test'); if(out) out.textContent = r.ok ? 'الاتصال ناجح: '+r.provider+' / '+r.model+' ('+nf(r.ms)+' م.ث)' : 'فشل: '+(r.error||'خطأ غير معروف'); }
+    else if(act==='ai-pause'){ await api('ai_settings?id=eq.1',{method:'PATCH',body:{paused:!S.ai.paused}}); render(); toast(S.ai.paused?'تم الاستئناف':'تم الإيقاف المؤقت'); }
+    else if(act==='tg-test'){ const r=await fn('test_telegram'); toast(r.ok?'تم إرسال رسالة تجريبية':(r.error||'فشل الإرسال')); }
+    else if(act==='news-pub'){ await publishNews(id); render(); toast('تم النشر'); }
+    else if(act==='news-ign'){ await api('news_items?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:{status:'ignored',decided_at:new Date().toISOString()}}); render(); toast('تم التجاهل'); }
+    else if(act==='news-edit'){ const n=S.pend.find(x=>x.id===id); openDlg(`<h3>تعديل ونشر</h3><form data-form="newsdraft"><input type="hidden" name="id" value="${n.id}"><div class="f2"><div class="full"><label class="l">العنوان</label><input class="field" name="title" value="${esc(n.draft_title||n.title)}" required maxlength="150"></div><div class="full"><label class="l">النص</label><textarea class="field" name="body" rows="5">${esc(n.draft_body||n.summary||'')}</textarea></div></div><div class="err" id="derr" hidden></div><div class="btns"><button class="btn red" type="submit">نشر</button><button class="btn line" type="button" data-act="dlg-close">إلغاء</button></div></form>`); }
+    else if(act==='inbox-done'){ await api('agent_inbox?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:{status:'done'}}); render(); }
+    else if(act==='src-toggle'){ const x=S.srcs.find(k=>k.id===id); await api('sources?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:{enabled:!x.enabled}}); render(); }
+    else if(act==='src-del'){ if(confirm('حذف هذا المصدر؟')){ await api('sources?id=eq.'+encodeURIComponent(id),{method:'DELETE'}); render(); toast('تم الحذف'); } }
     else if(act==='visit-again'){ S.justVisited=false; render(); }
     else if(act==='logout'){ await logout(); S.tab='ov'; toast('تم تسجيل الخروج'); render(); }
     else if(act==='book-add') openDlg(bookForm(null));
@@ -941,6 +1034,19 @@ document.addEventListener('submit', async e=>{
       store.set('reception',{returnHours:+d.returnHours,cooldownMin:Math.min(60,Math.max(1,+d.cooldownMin||5)),thresh:+d.thresh,voice:!!d.voice,log:!!d.log,countRepeats:!!d.countRepeats,facing:rprefs().facing});
       toast('تم حفظ الإعدادات');
     }
+    else if(type==='source'){
+      const u = safeUrl(d.url.trim()); if(!u) throw new Error('الرابط يجب أن يبدأ بـ http أو https');
+      await api('sources',{method:'POST',body:{name:d.name.trim(),kind:d.kind,url:u},prefer:'return=minimal'}); render(); toast('تمت إضافة المصدر');
+    }
+    else if(type==='newsdraft'){ await publishNews(d.id,{title:d.title,body:d.body}); closeDlg(); render(); toast('تم النشر'); }
+    else if(type==='aiset'){
+      await api('ai_settings?id=eq.1',{method:'PATCH',body:{publish_mode:d.publish_mode,check_hours:Math.min(48,Math.max(1,+d.check_hours||3)),min_relevance:Math.min(10,Math.max(0,+d.min_relevance||0)),quiet_night:!!d.quiet_night,updated_at:new Date().toISOString()}});
+      toast('تم حفظ الإعدادات');
+    }
+    else if(type==='apset'){
+      await api('ai_settings?id=eq.1',{method:'PATCH',body:{provider:d.provider,analysis_model:d.analysis_model.trim(),chat_model:d.chat_model.trim(),live_model:d.live_model.trim(),daily_call_limit:Math.min(5000,Math.max(1,+d.daily_call_limit||200)),updated_at:new Date().toISOString()}});
+      toast('تم حفظ إعدادات النموذج');
+    }
     else if(type==='news'){ await api('announcements',{method:'POST',body:{title:d.title.trim(),body:(d.body||'').trim()||null,published:true},prefer:'return=minimal'}); S.news=null; render(); toast('تم نشر الإعلان'); }
     else if(type==='comp'){ if(d.end_date<d.start_date) throw new Error('تاريخ النهاية يجب أن يكون بعد البداية'); await api('competitions',{method:'POST',body:{title:d.title.trim(),description:(d.description||'').trim()||null,start_date:d.start_date,end_date:d.end_date},prefer:'return=minimal'}); S.comps=null; render(); toast('تمت إضافة المسابقة'); }
     else if(type==='settings'){ await api('settings?id=eq.1',{method:'PATCH',body:{site_name:d.site_name.trim()||DEF_SETTINGS.site_name,library_hours:d.library_hours.trim(),borrowing_rules:d.borrowing_rules.trim(),updated_at:new Date().toISOString()}}); S.settings=null; await loadSettings(true); toast('تم حفظ الإعدادات'); }
@@ -951,7 +1057,7 @@ document.addEventListener('submit', async e=>{
       f.reset(); toast('تم تغيير كلمة السر');
     }
   }catch(err){
-    const target = type==='visitor'||type==='login'||type==='password' ? 'ferr' : 'derr';
+    const target = type==='visitor'||type==='login'||type==='password'||type==='source' ? 'ferr' : 'derr';
     showErr(target, err.message);
   }finally{ if(btn && document.contains(btn)) btn.disabled=false; }
 });
