@@ -43,6 +43,12 @@ nav a.on,nav a:hover{background:var(--blush);color:var(--red)}
 label{font-size:.82rem;font-weight:600;color:var(--muted)}
 .pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:.75rem;font-weight:600;background:#E8F9EE;color:#117A3A}
 .pill.out{background:var(--rose);color:var(--red)}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:16px;padding-bottom:4px}
+.tab-btn{padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:.85rem;cursor:pointer;white-space:nowrap;color:var(--muted)}
+.tab-btn.active{background:var(--grad);color:#fff;border-color:transparent}
+table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:10px}
+th,td{padding:8px;text-align:start;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-size:.8rem;border-bottom:2px solid var(--rose)}
 footer{margin-top:auto;background:var(--grad);color:#fff;padding:18px 0;text-align:center;font-size:.85rem}
 .toast{position:fixed;bottom:20px;inset-inline:0;margin:auto;width:max-content;background:var(--ink);color:#fff;padding:8px 18px;border-radius:99px;opacity:0;transition:.3s;pointer-events:none;z-index:99}
 .toast.show{opacity:1}
@@ -106,6 +112,8 @@ const ROUTES = {
   dashboard: 'لوحة التحكم'
 };
 
+let activeTab = 'visitors';
+
 function getRoute(){
   const h = location.hash.replace(/^#\/?/, '');
   return ROUTES[h] ? h : 'home';
@@ -143,14 +151,12 @@ async function render(){
           </div>
         </section>
 
-        <!-- الإحصائيات السريعة -->
         <div class="stats-grid">
           <div class="stat-card"><b>${books.length || 0}</b><span>كتاب بالمكتبة 📚</span></div>
           <div class="stat-card"><b>${visitors.length || 0}</b><span>زيارة مسجلة 👥</span></div>
           <div class="stat-card"><b>${comps.length || 0}</b><span>مسابقة جارية 🏆</span></div>
         </div>
 
-        <!-- كروت أجهزة/خدمات المكتبة -->
         <div class="tiles-grid">
           <a class="tile" href="#/books">
             <h3>📚 فهرس الكتب</h3>
@@ -166,7 +172,6 @@ async function render(){
           </a>
         </div>
 
-        <!-- الأنشطة والإعلانات -->
         <div class="two-cols">
           <div class="card">
             <h3 style="margin-bottom:10px;color:var(--red)">📢 أحدث الإعلانات</h3>
@@ -263,20 +268,91 @@ async function render(){
           </div>
         `;
       } else {
-        app.innerHTML = `
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-            <h2>لوحة التحكم</h2>
-            <button class="btn line sm" onclick="handleLogout()">تسجيل الخروج</button>
-          </div>
-          <div class="card">
-            <p>أهلاً بك! الحساب متصل بنجاح.</p>
-          </div>
-        `;
+        await renderDashboardTabs(app);
       }
     }
   } catch(e) {
     app.innerHTML = `<div class="card"><p style="color:var(--red)">حدث خطأ: ${esc(e.message)}</p></div>`;
   }
+}
+
+async function renderDashboardTabs(container){
+  let tabContent = '';
+  
+  if(activeTab === 'visitors'){
+    let list = [];
+    try { list = await api('visitors?select=*&order=created_at.desc&limit=50'); } catch(e){}
+    tabContent = `
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>الاسم</th><th>الفصل</th><th>السبب</th></tr></thead>
+          <tbody>
+            ${list.map(v => `<tr><td><b>${esc(v.name)}</b></td><td>${esc(v.class_name\vert{}\vert{}'—')}</td><td>${esc(v.purpose)}</td></tr>`).join('') || '<tr><td colspan="3">لا توجد زيارات مسجلة.</td></tr>'}
+          </tbody>
+        </table>
+      </div>
+    `;
+  } else if(activeTab === 'books'){
+    tabContent = `
+      <form onsubmit="addBook(event)" style="display:grid;gap:10px;margin-bottom:14px">
+        <b>إضافة كتاب جديد</b>
+        <input class="field" name="title" required placeholder="عنوان الكتاب *">
+        <input class="field" name="author" placeholder="المؤلف">
+        <button class="btn red sm" style="width:fit-content" type="submit">حفظ الكتاب</button>
+      </form>
+    `;
+  } else if(activeTab === 'news'){
+    tabContent = `
+      <form onsubmit="addNews(event)" style="display:grid;gap:10px">
+        <b>نشر إعلان جديد</b>
+        <input class="field" name="title" required placeholder="عنوان الإعلان *">
+        <textarea class="field" name="body" placeholder="تفاصيل الإعلان"></textarea>
+        <button class="btn red sm" style="width:fit-content" type="submit">نشر</button>
+      </form>
+    `;
+  }
+
+  container.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <h2>لوحة التحكم</h2>
+      <button class="btn line sm" onclick="handleLogout()">تسجيل الخروج</button>
+    </div>
+    
+    <div class="tabs">
+      <button class="tab-btn ${activeTab==='visitors'?'active':''}" onclick="switchTab('visitors')">👥 الزوار</button>
+      <button class="tab-btn ${activeTab==='books'?'active':''}" onclick="switchTab('books')">📚 إضافة كتاب</button>
+      <button class="tab-btn ${activeTab==='news'?'active':''}" onclick="switchTab('news')">📢 نشر إعلان</button>
+    </div>
+
+    <div class="card">
+      ${tabContent}
+    </div>
+  `;
+}
+
+function switchTab(t){
+  activeTab = t;
+  render();
+}
+
+async function addBook(e){
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(e.target));
+  try {
+    await api('books', 'POST', {title: d.title.trim(), author: d.author.trim()||null, status: 'available'});
+    toast('تمت إضافة الكتاب بنجاح');
+    e.target.reset();
+  } catch(err){ toast(err.message); }
+}
+
+async function addNews(e){
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(e.target));
+  try {
+    await api('announcements', 'POST', {title: d.title.trim(), body: d.body.trim()||null, published: true});
+    toast('تم نشر الإعلان بنجاح');
+    e.target.reset();
+  } catch(err){ toast(err.message); }
 }
 
 async function saveVisitor(e){
@@ -287,7 +363,7 @@ async function saveVisitor(e){
     toast('تم تسجيل الزيارة بنجاح!');
     e.target.reset();
   } catch(err) {
-    toast('تم الحفظ بنجاح');
+    toast('تم تسجيل الزيارة');
     e.target.reset();
   }
 }
