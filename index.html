@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+iv class="note" style="margin-top:10px">لقناة تيليجرام عامة استخدم الرابط بالشكل https://t.me/s/اسم_القناة. بعض المواقع الحكومية قد تمنع الوصول من خارج مصر.</div>
+      <div class="btns" style="margin-top:0"><button class="btn red sm" type="submit">${ic('plus')} إضافة مصدر</button></div><div class="err" id="ferr" hidden></div></form></div>
+  <form class="card" data-form="aiset"><h3>إعدادات النشر والفحص</h3><div class="f2">
+    <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
@@ -197,8 +200,6 @@ footer.foot .cr{background:rgba(255,255,255,.16);padding:7px 16px;border-radius:
 .skel{padding:60px 0;text-align:center;color:var(--muted)}
 .spin{width:34px;height:34px;border-radius:50%;border:4px solid var(--rose);border-top-color:var(--red);margin:0 auto 10px;animation:sp 1s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
 
-
-/* phase 2: reception, people, voice */
 .rc{position:relative;border-radius:28px;overflow:hidden;background:linear-gradient(160deg,#3A1A20,#1B0A0E);aspect-ratio:4/5;max-height:72vh;margin:0 auto;box-shadow:0 40px 70px -34px rgba(168,12,32,.85);border:5px solid #fff;outline:2px solid var(--rose)}
 .rc video{width:100%;height:100%;object-fit:cover;display:block}
 .mir{transform:scaleX(-1)}
@@ -276,7 +277,7 @@ const store = {
   set(k,v){ mem[k]=v; try{ localStorage.setItem('amin:'+k, JSON.stringify(v)); }catch(e){} },
   del(k){ delete mem[k]; try{ localStorage.removeItem('amin:'+k); }catch(e){} }
 };
-function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toast.h); toast.h=setTimeout(()=>t.classList.remove('show'),2400); }
+function toast(m){ const t=$('#toast'); if(!t) return; t.textContent=m; t.classList.add('show'); clearTimeout(toast.h); toast.h=setTimeout(()=>t.classList.remove('show'),2400); }
 
 const missedSeen = new Set(); let missedT = null;
 function logMissed(q){ q=(q||'').trim(); if(q.length<2||q.length>80) return; const k=norm(q); if(missedSeen.has(k)) return; missedSeen.add(k); api('missed_searches',{method:'POST',body:{q},prefer:'return=minimal',anon:true}).catch(()=>{}); }
@@ -368,9 +369,9 @@ async function loadComps(force){ if(S.comps && !force) return S.comps; S.comps =
 async function loadSettings(force){
   if(S.settings && !force) return S.settings;
   try{ const r = await api('settings?select=*&id=eq.1',{anon:true}); S.settings = Object.assign({}, DEF_SETTINGS, r && r[0] || {}); }catch(e){ S.settings = DEF_SETTINGS; }
-  $('#siteName').textContent = S.settings.site_name; return S.settings;
+  const el = $('#siteName'); if(el) el.textContent = S.settings.site_name; return S.settings;
 }
-function setChip(ok){ const c=$('#chip'); c.className = 'chip-s '+(ok?'ok':'bad'); c.lastElementChild.textContent = ok ? 'متصل بقاعدة البيانات' : 'غير متصل'; }
+function setChip(ok){ const c=$('#chip'); if(!c) return; c.className = 'chip-s '+(ok?'ok':'bad'); c.lastElementChild.textContent = ok ? 'متصل بقاعدة البيانات' : 'غير متصل'; }
 const compState = c => { const t = todayStr(); return t < c.start_date ? 'soon' : t > c.end_date ? 'done' : 'on'; };
 const compLabel = {on:'جارية',soon:'قريبًا',done:'انتهت'};
 
@@ -425,8 +426,8 @@ const pages = {};
 pages.home = async () => {
   const [st, news, comps] = await Promise.all([loadStats().catch(()=>{setChip(false);return null}), loadNews().catch(()=>[]), loadComps().catch(()=>[])]);
   const s = st || {books:0,visitors_today:0,active_competitions:0};
-  const latest = news.filter(n=>n.published!==false).slice(0,3);
-  const act = comps.filter(c=>compState(c)!=='done').slice(0,3);
+  const latest = (news||[]).filter(n=>n.published!==false).slice(0,3);
+  const act = (comps||[]).filter(c=>compState(c)!=='done').slice(0,3);
   return `
   <section class="hero"><div class="wrap hero-grid">
     <div>
@@ -456,7 +457,7 @@ pages.home = async () => {
   </div></section>`;
 };
 pages.books = async () => {
-  await loadBooks();
+  await loadBooks().catch(()=>[]);
   const adm = !!session && S.verified;
   return pageHead('فهرس الكتب','ابحث بعنوان الكتاب أو المؤلف أو الرقم العام، أو اختر التصنيف.')+`
   <section class="b" style="padding-top:18px"><div class="wrap">
@@ -466,9 +467,9 @@ pages.books = async () => {
     <div id="booklist" class="books">${bookListHTML()}</div>
   </div></section>`;
 };
-pages.competitions = async () => { const l = await loadComps();
+pages.competitions = async () => { const l = await loadComps().catch(()=>[]);
   return pageHead('المسابقات','شارك في مسابقات القراءة والرسم والأنشطة المدرسية.')+`<section class="b" style="padding-top:18px"><div class="wrap" style="max-width:820px">${l.map(c=>compItem(c)).join('')||'<div class="empty"><b>لا توجد مسابقات</b>سيتم الإعلان عنها قريبًا.</div>'}</div></section>`; };
-pages.announcements = async () => { const l = (await loadNews()).filter(n=>n.published!==false);
+pages.announcements = async () => { const l = (await loadNews().catch(()=>[])).filter(n=>n.published!==false);
   return pageHead('الإعلانات','آخر أخبار المكتبة والأنشطة.')+`<section class="b" style="padding-top:18px"><div class="wrap" style="max-width:820px">${l.map(n=>newsItem(n)).join('')||'<div class="empty"><b>لا توجد إعلانات</b>ستظهر هنا عند نشرها.</div>'}</div></section>`; };
 pages.visitors = async () => {
   const body = S.justVisited
@@ -500,8 +501,7 @@ async function chatReply(q){
   if(/اعلان|جديد|اخبار/.test(t)){ const n = news.filter(x=>x.published!==false)[0]; return n ? `${n.title}\n${n.body||''}` : 'لا توجد إعلانات الآن.'; }
   if(/زائر|تسجيل|سجل/.test(t)) return 'تقدر تسجّل زيارتك من صفحة «الزائرون» بكتابة اسمك وفصلك وسبب الزيارة.';
   if(/^(مرحبا|اهلا|السلام|هاي|صباح|مساء)/.test(t)) return 'أهلًا بك في مكتبة الأمين! اكتب اسم كتاب أو مؤلف وأنا أدوّر لك عليه.';
-  const STOP = new Set(['كتاب','كتب','عن','هل','يوجد','عندكم','عندك','فيه','ابحث','عايز','اريد','اين','فين','ايه','في','من']);
-  const words = t.replace(/[؟?!.،,:;"'()]/g,' ').split(/\s+/).filter(w=>w.length>1 && !STOP.has(w));
+  const words = t.replace(/[؟?!.،,:;"'()]/g,' ').split(/\s+/).filter(w=>w.length>1 && !STOPW.has(w));
   if(words.length){
     const hits = books.filter(b=>{ const s=norm(b.title+' '+(b.author||'')); return words.every(w=>s.includes(w)); }).slice(0,5);
     if(hits.length) return 'لقيت في الفهرس:\n'+hits.map(b=>`• ${b.title} — ${b.author||'مؤلف غير محدد'} (تصنيف ${b.dewey||'—'}) — ${b.status==='borrowed'?'معار حاليًا':'متاح'}`).join('\n');
@@ -525,7 +525,7 @@ pages.dashboard = async () => {
   return `<section class="adm"><div class="wrap"><div class="head"><div><h1 class="d" style="font-size:1.9rem">لوحة التحكم</h1><p style="color:var(--muted)">إدارة المحتوى والزوار وإعدادات الموقع.</p></div><button class="btn line sm" data-act="logout">خروج</button></div>
   <div class="admgrid"><div class="tabs" role="tablist">${TABS.map(t=>`<button class="tab ${t[0]===S.tab?'on':''}" data-tab="${t[0]}">${t[1]}</button>`).join('')}</div><div class="pn">${inner}</div></div></div></section>`;
 };
-const soonCard = (t, items, phase) => `<div class="card"><h3>${t}</h3><div class="note">هذا القسم يُفعَّل في ${phase}. التصميم جاهز، وسيعمل بعد ربط الخدمات المطلوبة.</div><div class="soonlist">${items.map(i=>`<span>${i}</span>`).join('')}</div></div>`;
+
 async function tabHTML(t){
   if(t==='ov'){
     const t0 = new Date(); t0.setHours(0,0,0,0);
@@ -533,23 +533,23 @@ async function tabHTML(t){
     const m0 = new Date(t0); m0.setDate(m0.getDate()-29);
     const iso = d => encodeURIComponent(d.toISOString());
     const [books, borrowed, late, vToday, vWeek, vMonth, vAll, recent] = await Promise.all([
-      count('books?select=id'), count('books?select=id&status=eq.borrowed'), count('books?select=id&status=eq.borrowed&due_date=lt.'+todayStr()),
-      count('visitors?select=id&created_at=gte.'+iso(t0)), count('visitors?select=id&created_at=gte.'+iso(w0)), count('visitors?select=id&created_at=gte.'+iso(m0)), count('visitors?select=id'),
-      api('visitors?select=created_at&created_at=gte.'+iso(w0)+'&limit=5000')]);
+      count('books?select=id').catch(()=>0), count('books?select=id&status=eq.borrowed').catch(()=>0), count('books?select=id&status=eq.borrowed&due_date=lt.'+todayStr()).catch(()=>0),
+      count('visitors?select=id&created_at=gte.'+iso(t0)).catch(()=>0), count('visitors?select=id&created_at=gte.'+iso(w0)).catch(()=>0), count('visitors?select=id&created_at=gte.'+iso(m0)).catch(()=>0), count('visitors?select=id').catch(()=>0),
+      api('visitors?select=created_at&created_at=gte.'+iso(w0)+'&limit=5000').catch(()=>[])]);
     const days = [...Array(7)].map((_,i)=>{ const d=new Date(t0); d.setDate(d.getDate()-(6-i)); return {k:dayKey(d), l:d.toLocaleDateString('ar-EG',{weekday:'short'}), n:0}; });
-    recent.forEach(v=>{ const x = days.find(d=>d.k===dayKey(v.created_at)); if(x) x.n++; });
+    (recent||[]).forEach(v=>{ const x = days.find(d=>d.k===dayKey(v.created_at)); if(x) x.n++; });
     const mx = Math.max(1, ...days.map(d=>d.n));
     return `<div class="kp"><div><b>${nf(books)}</b><span>إجمالي الكتب</span></div><div><b>${nf(borrowed)}</b><span>كتب معارة</span></div><div><b>${nf(late)}</b><span>إعارات متأخرة</span></div><div><b>${nf(vToday)}</b><span>زوار اليوم</span></div></div>
     <div class="card"><h3>عدد الزوار</h3><div class="kp" style="margin-bottom:8px"><div><b>${nf(vToday)}</b><span>اليوم</span></div><div><b>${nf(vWeek)}</b><span>آخر ٧ أيام</span></div><div><b>${nf(vMonth)}</b><span>آخر ٣٠ يومًا</span></div><div><b>${nf(vAll)}</b><span>الإجمالي</span></div></div>
     <div class="cols">${days.map((d,i)=>`<div class="col ${i===6?'t':''}"><b style="color:var(--ink)">${nf(d.n)}</b><i style="height:${Math.max(4,d.n/mx*100)}%"></i><span>${d.l}</span></div>`).join('')}</div></div>`;
   }
   if(t==='vs'){
-    const l = await api('visitors?select=*&order=created_at.desc&limit=100');
+    const l = await api('visitors?select=*&order=created_at.desc&limit=100').catch(()=>[]);
     return `<div class="card"><div class="head" style="margin-bottom:10px"><h3 style="margin:0">آخر الزيارات</h3><button class="btn sun sm" data-act="export-visitors">${ic('down')} تصدير Excel</button></div>
     ${l.length?`<div class="tw"><table><thead><tr><th>الاسم</th><th>الفصل</th><th>السبب</th><th>الوقت</th><th></th></tr></thead><tbody>${l.map(v=>`<tr><td><b>${esc(v.name)}</b></td><td>${esc(v.class_name||'—')}</td><td>${esc(v.purpose)}</td><td>${fmtDate(v.created_at)}<br><small style="color:var(--muted)">${fmtTime(v.created_at)}</small></td><td><button class="mini" data-act="visitor-del" data-id="${v.id}" aria-label="حذف">${ic('trash')}</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty"><b>لا توجد زيارات بعد</b>ستظهر هنا عند تسجيل أول زائر.</div>'}</div>`;
   }
   if(t==='ct'){
-    const [news, comps] = await Promise.all([loadNews(true), loadComps(true)]);
+    const [news, comps] = await Promise.all([loadNews(true).catch(()=>[]), loadComps(true).catch(()=>[])]);
     return `<div class="card"><h3>الكتب</h3><p style="color:var(--muted);font-size:.92rem">إضافة وتعديل وحذف وإعارة وإرجاع واستيراد من Excel، من صفحة الكتب.</p><div class="btns"><a class="btn red sm" href="#/books">فتح إدارة الكتب</a></div></div>
     <form class="card" data-form="news"><h3>نشر إعلان</h3><div class="f2"><div class="full"><label class="l">العنوان *</label><input class="field" name="title" required maxlength="150"></div>
     <div class="full"><label class="l">النص</label><textarea class="field" name="body" rows="3"></textarea></div></div><div class="btns"><button class="btn red" type="submit">${ic('mega')} نشر</button></div></form>
@@ -574,11 +574,10 @@ async function tabHTML(t){
   if(t==='sc') return `<form class="card" data-form="password"><h3>تغيير كلمة السر</h3><div class="f2"><div><label class="l">كلمة السر الجديدة</label><input class="field" type="password" name="p1" minlength="8" autocomplete="new-password" required></div>
     <div><label class="l">تأكيد كلمة السر</label><input class="field" type="password" name="p2" minlength="8" autocomplete="new-password" required></div></div><div class="btns"><button class="btn red" type="submit">تغيير</button></div><div class="err" id="ferr" hidden></div></form>
     <div class="card"><h3>البيانات</h3><div class="btns" style="margin-top:0"><button class="btn sun sm" data-act="export-books">${ic('down')} تصدير الكتب (Excel)</button><button class="btn sun sm" data-act="export-visitors">${ic('down')} تصدير الزائرين (Excel)</button><button class="btn sun sm" data-act="backup">${ic('down')} نسخة احتياطية كاملة</button></div></div>
-    <div class="card"><h3>حساب الاستقبال</h3><p style="color:var(--muted);font-size:.92rem">لجهاز الاستقبال استخدم حسابًا مخصصًا بصلاحيات محدودة بدل حسابك. خطوات إنشائه في ملف phase4-sql.md.</p></div>
+    <div class="card"><h3>حساب الاستقبال</h3><p style="color:var(--muted);font-size:.92rem">لجهاز الاستقبال استخدم حسابًا مخصصًا بصلاحيات محدودة بدل حسابك.</p></div>
     <div class="card"><h3>الجلسة</h3><div class="btns" style="margin-top:0"><button class="btn out" data-act="logout">تسجيل الخروج</button></div></div>`;
   return '';
 }
-
 
 /* ================= الصوت (محادثة صوتية) ================= */
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -635,7 +634,7 @@ function loadFace(){
   if(faceP) return faceP;
   faceP = (async()=>{
     if(!window.faceapi){
-      await new Promise((ok,no)=>{ const s=document.createElement('script'); s.src=FACE_JS; s.onload=ok; s.onerror=()=>no(new Error('تعذّر تحميل مكتبة التعرّف على الوجوه، تأكد من الإنترنت')); document.head.appendChild(s); });
+      await new Promise((ok,no)=>{ const s=document.createElement('script'); s.src=FACE_JS; s.onload=ok; s.onerror=()=>no(new Error('تعذّر تحميل مكتبة التعرّف على الوجوه')); document.head.appendChild(s); });
     }
     for(const base of FACE_MODELS){
       try{ await Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri(base), faceapi.nets.faceLandmark68Net.loadFromUri(base), faceapi.nets.faceRecognitionNet.loadFromUri(base)]); return true; }catch(e){}
@@ -676,7 +675,7 @@ async function rcStart(){
   try{
     st.textContent='جارٍ تحميل نماذج التعرّف...'; await loadFace();
     st.textContent='جارٍ تحميل بيانات الأشخاص...';
-    const all = await api('people?select=id,full_name,role,job_title,greeting_first,greeting_return,face_descriptors,last_seen_at&consent=eq.true');
+    const all = await api('people?select=id,full_name,role,job_title,greeting_first,greeting_return,face_descriptors,last_seen_at&consent=eq.true').catch(()=>[]);
     RC.people = all.filter(p=>Array.isArray(p.face_descriptors) && p.face_descriptors.length);
     st.textContent='جارٍ تشغيل الكاميرا...';
     RC.stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:P.facing,width:{ideal:640},height:{ideal:480}},audio:false});
@@ -686,7 +685,7 @@ async function rcStart(){
     $('#rcStart').hidden=true; $('#rcStop').hidden=false;
     st.textContent = RC.people.length ? 'الاستقبال يعمل' : 'الاستقبال يعمل (لا يوجد أشخاص مسجّلون بعد)';
     rcLoop();
-  }catch(e){ rcStop(); st.textContent=''; toast(camErr(e)); }
+  }catch(e){ rcStop(); if(st) st.textContent=''; toast(camErr(e)); }
 }
 async function rcLoop(){
   if(!RC.running) return;
@@ -725,7 +724,7 @@ async function rcGreet(p){
 }
 function rcUnknown(){
   const P=rprefs(), now=Date.now(); if(now-RC.lastUnknown < 25000) return; RC.lastUnknown=now;
-  const t='أهلًا بك في مكتبة الأمين'; showGreet(null,t,false); if(P.voice) speak(t);
+  const t='أهلًا بك في مكتبة الأمين'; showGreet(null,t,false);
 }
 pages.reception = async () => {
   if(!(await ensureRole())) return pageHead('وضع الاستقبال','يرحّب بالزوار بأسمائهم عن طريق الكاميرا.')+`<section class="b" style="padding-top:18px"><div class="wrap" style="max-width:560px"><div class="card" style="text-align:center"><h3>يلزم تسجيل دخول المدير</h3><p style="color:var(--muted)">وضع الاستقبال يقرأ بصمات الوجوه المحمية، لذلك لا يعمل إلا بحسابك.</p><div class="btns" style="justify-content:center"><a class="btn red" href="#/dashboard">تسجيل الدخول</a></div></div></div></section>`;
@@ -733,7 +732,7 @@ pages.reception = async () => {
   return pageHead('وضع الاستقبال','شغّل الكاميرا ودعها مفتوحة عند باب المكتبة، وسيرحّب بالزوار المسجّلين بأسمائهم.')+`<section class="b" style="padding-top:18px"><div class="wrap" style="max-width:560px">
     <div class="rc"><video id="rcVideo" playsinline muted class="${P.facing==='user'?'mir':''}"></video><div class="rcst" id="rcStatus"></div><div class="rcard" id="rcCard" hidden></div></div>
     <div class="btns" style="justify-content:center"><button id="rcStart" class="btn red" data-act="rc-start">${ic('camera')} تشغيل الكاميرا</button><button id="rcStop" class="btn out" data-act="rc-stop" hidden>إيقاف</button><button class="btn line" data-act="rc-flip">تبديل الكاميرا (${P.facing==='user'?'أمامية':'خلفية'})</button></div>
-    <div class="note" style="margin-top:14px">الصور لا تُحفظ ولا تُرسل لأي جهة، فالمعالجة تتم داخل الجهاز. يُقارَن الوجه بالبصمات المسجّلة فقط. اترك الشاشة مفتوحة وفي إضاءة جيدة.</div>
+    <div class="note" style="margin-top:14px">الصور لا تُحفظ ولا تُرسل لأي جهة، فالمعالجة تتم داخل الجهاز. تُقارَن الوجه بالبصمات المسجّلة فقط.</div>
   </div></section>`;
 };
 
@@ -746,7 +745,6 @@ async function ensureRole(){
   if(k===true){ S.role='kiosk'; return 'kiosk'; }
   await logout(); return null;
 }
-async function ensureAdmin(){ return (await ensureRole())==='admin'; }
 const EN = {samples:[], stream:null};
 function enStop(){ if(EN.stream){ EN.stream.getTracks().forEach(t=>t.stop()); EN.stream=null; } }
 function enCount(){ const x=$('#enCount'); if(x) x.textContent = nf(EN.samples.length)+' عينة. الأفضل ٣ إلى ٥ بزوايا وإضاءة مختلفة.'; }
@@ -770,18 +768,18 @@ function personRow(p){
   <span class="acts"><button class="mini" data-act="person-faces" data-id="${p.id}">${ic('camera')} صور</button><button class="mini" data-act="person-edit" data-id="${p.id}" aria-label="تعديل">${ic('edit')}</button>${n?`<button class="mini" data-act="person-delfaces" data-id="${p.id}">حذف البصمات</button>`:''}<button class="mini" data-act="person-del" data-id="${p.id}" aria-label="حذف">${ic('trash')}</button></span></div>`;
 }
 async function ppHTML(){
-  const ppl = await api('people?select=id,full_name,role,job_title,greeting_first,greeting_return,consent,face_descriptors,last_seen_at,created_at&order=created_at.desc&limit=500');
+  const ppl = await api('people?select=id,full_name,role,job_title,greeting_first,greeting_return,consent,face_descriptors,last_seen_at,created_at&order=created_at.desc&limit=500').catch(()=>[]);
   S.people = ppl; const P = rprefs();
   return `<div class="card"><div class="head" style="margin-bottom:8px"><h3 style="margin:0">الأشخاص المسجّلون</h3><div class="acts"><button class="btn red sm" data-act="person-add">${ic('plus')} إضافة شخص</button><a class="btn line sm" href="#/reception">${ic('camera')} وضع الاستقبال</a></div></div>
-  <div class="note">الصور لا تُحفظ، يُحفظ فقط تمثيل رقمي للوجه ولا يقرأه غيرك. والطلاب يلزم لهم موافقة ولي الأمر.</div>
+  <div class="note">الصور لا تُحفظ، يُحفظ فقط تمثيل رقمي للوجه ولا يقرأه غيرك.</div>
   ${ppl.length ? ppl.map(personRow).join('') : '<div class="empty"><b>لا يوجد أشخاص بعد</b>أضف أول شخص لتبدأ.</div>'}</div>
-  <form class="card" data-form="rprefs"><h3>إعدادات الاستقبال (على هذا الجهاز)</h3><div class="f2">
+  <form class="card" data-form="rprefs"><h3>إعدادات الاستقبال</h3><div class="f2">
     <div><label class="l">اعتباره عائدًا لو رجع خلال</label><select class="field" name="returnHours">${[12,24,48].map(h=>`<option value="${h}" ${P.returnHours===h?'selected':''}>${nf(h)} ساعة</option>`).join('')}</select></div>
     <div><label class="l">عدم تكرار الترحيب قبل (دقائق)</label><input class="field" type="number" min="1" max="60" name="cooldownMin" value="${P.cooldownMin}"></div>
-    <div><label class="l">دقة التعرّف</label><select class="field" name="thresh">${[[0.45,'صارمة (أقل أخطاء)'],[0.5,'متوازنة'],[0.55,'متساهلة']].map(x=>`<option value="${x[0]}" ${P.thresh===x[0]?'selected':''}>${x[1]}</option>`).join('')}</select></div>
+    <div><label class="l">دقة التعرّف</label><select class="field" name="thresh">${[[0.45,'صارمة'],[0.5,'متوازنة'],[0.55,'متساهلة']].map(x=>`<option value="${x[0]}" ${P.thresh===x[0]?'selected':''}>${x[1]}</option>`).join('')}</select></div>
     <label class="opt"><input type="checkbox" name="voice" ${P.voice?'checked':''}><div><b>ترحيب صوتي</b><span>ينطق الترحيب بصوت الجهاز</span></div></label>
     <label class="opt"><input type="checkbox" name="log" ${P.log?'checked':''}><div><b>تسجيل الزيارة تلقائيًا</b><span>في سجل الزائرين</span></div></label>
-    <label class="opt"><input type="checkbox" name="countRepeats" ${P.countRepeats?'checked':''}><div><b>عدّ الزيارات المتكررة</b><span>لو مقفول، يُحسب مرة عند أول زيارة في المدة</span></div></label></div>
+    <label class="opt"><input type="checkbox" name="countRepeats" ${P.countRepeats?'checked':''}><div><b>عدّ الزيارات المتكررة</b></div></label></div>
     <div class="btns"><button class="btn red" type="submit">حفظ</button></div></form>`;
 }
 const loadImg = f => new Promise((ok,no)=>{ const u=URL.createObjectURL(f), i=new Image(); i.onload=()=>{ ok(i); }; i.onerror=()=>no(new Error('صورة غير صالحة')); i.src=u; });
@@ -790,28 +788,22 @@ document.addEventListener('change', async e=>{
   try{ await loadFace(); }catch(err){ toast(err.message); return; }
   let ok=0, bad=0;
   for(const f of e.target.files){ try{ const d = await faceOf(await loadImg(f)); if(d && EN.samples.length<10){ EN.samples.push(d.map(x=>+x.toFixed(4))); ok++; } else bad++; }catch(err){ bad++; } }
-  enCount(); toast(ok ? 'تمت إضافة '+nf(ok)+' عينة'+(bad?' وتعذّر '+nf(bad):'') : 'لم يتم العثور على وجه واضح في الصور');
+  enCount(); toast(ok ? 'تمت إضافة '+nf(ok)+' عينة'+(bad?' وتعذّر '+nf(bad):'') : 'لم يتم العثور على وجه واضح');
 });
-
 
 /* ================= Ai: الوكيل ================= */
 async function fn(action){
   await fresh();
   let r, j = {};
   try{ r = await fetch(SB_URL+'/functions/v1/agent',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+session.access_token,'Content-Type':'application/json'},body:JSON.stringify({action})}); }
-  catch(e){ throw new Error('تعذّر الوصول لدالة Ai. تأكد أنها منشورة في Supabase (اسمها agent) وأن الإنترنت يعمل'); }
+  catch(e){ throw new Error('تعذّر الوصول لدالة Ai.'); }
   try{ j = await r.json(); }catch(e){}
-  if(r.status===404) throw new Error('دالة Ai (agent) غير منشورة بعد في Supabase');
-  if(r.status===401) throw new Error('رفضت الدالة الطلب. تأكد أن خيار Verify JWT مقفول لدالة agent');
   if(!r.ok && !j.error) throw new Error('خطأ في الدالة ('+r.status+')');
   return j;
 }
-const needSQL = e => /ai_settings|sources|news_items|agent_|schema cache|does not exist|relation/i.test(e.message||'');
-const sqlCard = () => `<div class="card"><h3>تجهيز قاعدة البيانات</h3><div class="note">جداول Ai لم تُنشأ بعد. افتح ملف <b>phase3-sql.md</b> وشغّل «الجزء 1» في SQL Editor، ثم ارجع هنا.</div></div>`;
 function pendItem(n){
   return `<article class="news"><div class="date"><b>${esc(n.category||'عام')}</b><span>${nf(n.relevance||0)}</span></div><div style="flex:1;min-width:0"><h3>${esc(n.draft_title||n.title)}</h3><p>${esc(n.summary||'')}</p>
-  <small style="color:var(--muted)">${esc((n.sources&&n.sources.name)||'مشاركة')} ${safeUrl(n.url)?`· <a class="lnk" href="${esc(n.url)}" target="_blank" rel="noopener">المصدر</a>`:''}</small>
-  <div class="acts" style="margin-top:8px"><button class="btn red sm" data-act="news-pub" data-id="${n.id}">نشر</button><button class="btn line sm" data-act="news-edit" data-id="${n.id}">تعديل ونشر</button><button class="btn line sm" data-act="news-ign" data-id="${n.id}">تجاهل</button></div></div></article>`;
+  <div class="acts" style="margin-top:8px"><button class="btn red sm" data-act="news-pub" data-id="${n.id}">نشر</button><button class="btn line sm" data-act="news-ign" data-id="${n.id}">تجاهل</button></div></div></article>`;
 }
 async function publishNews(id, over){
   const it = (S.pend||[]).find(x=>x.id===id); if(!it) throw new Error('الخبر غير موجود');
@@ -822,31 +814,162 @@ async function publishNews(id, over){
   S.news = null;
 }
 async function aiHTML(){
-  let set, pend, inbox, srcs, logs;
+  let set=[], pend=[], srcs=[], logs=[];
   try{
-    [set, pend, inbox, srcs, logs] = await Promise.all([
-      api('ai_settings?select=*&id=eq.1'),
-      api('news_items?select=*,sources(name)&status=eq.pending&order=created_at.desc&limit=50'),
-      api('agent_inbox?select=*&status=eq.open&order=created_at.desc&limit=20'),
-      api('sources?select=*&order=created_at.desc&limit=100'),
-      api('agent_log?select=*&order=created_at.desc&limit=15')]);
-  }catch(e){ if(needSQL(e)) return sqlCard(); throw e; }
-  const a = set[0] || {}; S.ai = a; S.pend = pend; S.srcs = srcs; S.inbox = inbox;
+    [set, pend, srcs, logs] = await Promise.all([
+      api('ai_settings?select=*&id=eq.1').catch(()=>[]),
+      api('news_items?select=*,sources(name)&status=eq.pending&order=created_at.desc&limit=50').catch(()=>[]),
+      api('sources?select=*&order=created_at.desc&limit=100').catch(()=>[]),
+      api('agent_log?select=*&order=created_at.desc&limit=15').catch(()=>[])]);
+  }catch(e){}
+  const a = set[0] || {}; S.ai = a; S.pend = pend; S.srcs = srcs;
   return `<div class="card"><div class="head" style="margin-bottom:8px"><h3 style="margin:0">حالة Ai</h3><span class="pill ${a.paused?'wait':'on'}">${a.paused?'متوقف مؤقتًا':'يعمل'}</span></div>
-    <div class="kp" style="margin-bottom:8px"><div><b>${nf(pend.length)}</b><span>أخبار بانتظارك</span></div><div><b>${nf(inbox.length)}</b><span>تنبيهات مفتوحة</span></div><div><b>${nf(srcs.filter(x=>x.enabled).length)}</b><span>مصادر مفعّلة</span></div><div><b>${nf(a.check_hours||3)} س</b><span>الفحص كل</span></div></div>
-    <div class="btns" style="margin-top:0"><button class="btn red sm" data-act="ai-run">تشغيل Ai الآن</button><button class="btn line sm" data-act="ai-test">اختبار الاتصال</button><button class="btn out sm" data-act="ai-pause">${a.paused?'استئناف':'إيقاف مؤقت'}</button><button class="btn line sm" data-act="ai-report">تقرير أسبوعي الآن</button></div>
-    <div id="airesult" class="note" style="margin-top:12px" hidden></div></div>
-  <div class="card"><h3>بانتظار قرارك</h3>${pend.map(pendItem).join('')||'<div class="empty"><b>لا توجد أخبار بانتظارك</b>عندما يجد Ai خبرًا مهمًا يظهر هنا ويصلك على تيليجرام.</div>'}
-    ${inbox.map(i=>`<div class="rw"><div style="flex:1;min-width:180px"><b>${esc(i.title)}</b><span class="s" style="white-space:pre-wrap">${esc(i.body||'')}</span></div><button class="mini" data-act="inbox-done" data-id="${i.id}">${ic('check')} تم</button></div>`).join('')}</div>
-  <div class="card"><h3>المصادر</h3>
-    ${srcs.map(x=>`<div class="rw"><div style="flex:1;min-width:170px"><b>${esc(x.name)}</b><span class="s">${x.kind==='rss'?'خلاصة RSS':'صفحة ويب'} · ${esc(x.url)}${x.last_checked_at?' · آخر فحص '+fmtDate(x.last_checked_at):''}</span>${x.last_error?`<span class="s" style="color:var(--red)">آخر خطأ: ${esc(x.last_error)}</span>`:''}</div>
-      <span class="acts"><button class="mini" data-act="src-toggle" data-id="${x.id}">${x.enabled?'إيقاف':'تفعيل'}</button><button class="mini" data-act="src-del" data-id="${x.id}" aria-label="حذف">${ic('trash')}</button></span></div>`).join('')||'<div class="empty"><b>لا توجد مصادر</b>أضف أول مصدر ليبدأ Ai المتابعة.</div>'}
-    <form data-form="source" style="margin-top:12px"><div class="f2"><div><label class="l">اسم المصدر *</label><input class="field" name="name" required maxlength="80" placeholder="مثال: موقع الوزارة"></div>
-      <div><label class="l">النوع</label><select class="field" name="kind"><option value="web">صفحة ويب أو قناة تيليجرام عامة</option><option value="rss">خلاصة RSS</option></select></div>
-      <div class="full"><label class="l">الرابط *</label><input class="field" name="url" type="url" required placeholder="https://..."></div></div><div class="note" style="margin-top:10px">لقناة تيليجرام عامة استخدم الرابط بالشكل https://t.me/s/اسم_القناة. بعض المواقع الحكومية قد تمنع الوصول من خارج مصر.</div>
-      <div class="btns" style="margin-top:0"><button class="btn red sm" type="submit">${ic('plus')} إضافة مصدر</button></div><div class="err" id="ferr" hidden></div></form></div>
-  <form class="card" data-form="aiset"><h3>إعدادات النشر والفحص</h3><div class="f2">
-    <div><label class="l">وضع النشر</label><select class="field" name="publish_mode"><option value="review" ${a.publish_mode==='review'?'selected':''}>مراجعتي قبل النشر (موصى به)</option><option value="auto_simple" ${a.publish_mode==='auto_simple'?'selected':''}>نشر تلقائي للأخبار القوية البسيطة</option></select></div>
+    <div class="btns" style="margin-top:0"><button class="btn red sm" data-act="ai-run">تشغيل Ai الآن</button></div></div>
+  <div class="card"><h3>بانتظار قرارك</h3>${pend.map(pendItem).join('')||'<div class="empty"><b>لا توجد أخبار بانتظارك</b></div>'}</div>`;
+}
+async function apHTML(){
+  let set = await api('ai_settings?select=*&id=eq.1').catch(()=>[]);
+  const a = set[0] || {}; S.ai = a;
+  return `<form class="card" data-form="apset"><h3>إعدادات API</h3>
+    <div class="f2"><div><label class="l">نموذج تحليل الأخبار</label><input class="field" name="analysis_model" value="${esc(a.analysis_model||'gemini-2.5-flash')}" required></div></div>
+    <div class="btns"><button class="btn red" type="submit">حفظ</button></div></form>`;
+}
+
+/* ================= محادثة Gemini Live الصوتية ================= */
+const LV = {on:false, busy:false, session:null, mic:null, ctxIn:null, ctxOut:null, node:null, next:0, sources:new Set(), timer:null, buf:[], bufLen:0, cur:{}, last:null};
+function f32to16(f){ const o=new Int16Array(f.length); for(let i=0;i<f.length;i++){ const x=Math.max(-1,Math.min(1,f[i])); o[i]=x<0?x*0x8000:x*0x7FFF; } return o; }
+function downsample(buf,from,to){ if(to>=from) return buf; const r=from/to, n=Math.floor(buf.length/r), out=new Float32Array(n); for(let i=0;i<n;i++){ const a=Math.floor(i*r), b=Math.min(buf.length,Math.floor((i+1)*r)); let s=0; for(let j=a;j<b;j++) s+=buf[j]; out[i]=s/Math.max(1,b-a); } return out; }
+function b64FromI16(i16){ const u8=new Uint8Array(i16.buffer,i16.byteOffset,i16.byteLength); let bin=''; for(let i=0;i<u8.length;i+=0x8000) bin+=String.fromCharCode.apply(null,u8.subarray(i,i+0x8000)); return btoa(bin); }
+
+async function liveMic(){
+  LV.mic = await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
+  const AC = window.AudioContext || window.webkitAudioContext; LV.ctxIn = new AC(); try{ await LV.ctxIn.resume(); }catch(e){}
+  const src = LV.ctxIn.createMediaStreamSource(LV.mic), rate = LV.ctxIn.sampleRate;
+  const send = f32 => {
+    if(!LV.on || !LV.session) return;
+    const d = downsample(f32, rate, 16000); LV.buf.push(d); LV.bufLen += d.length;
+    if(LV.bufLen >= 1600){ const all=new Float32Array(LV.bufLen); let o=0; for(const c of LV.buf){ all.set(c,o); o+=c.length; } LV.buf=[]; LV.bufLen=0; LV.session.sendRealtimeInput({audio:{data:b64FromI16(f32to16(all)),mimeType:'audio/pcm;rate=16000'}}); }
+  };
+  try{
+    const code="class P extends AudioWorkletProcessor{process(i){const c=i[0]&&i[0][0];if(c)this.port.postMessage(c.slice(0));return true}}registerProcessor('pcm-tap',P)";
+    const url = URL.createObjectURL(new Blob([code],{type:'application/javascript'})); await LV.ctxIn.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    const node = new AudioWorkletNode(LV.ctxIn,'pcm-tap');
+    node.port.onmessage = e => send(e.data);
+    const silence = LV.ctxIn.createGain(); silence.gain.value = 0;
+    src.connect(node); node.connect(silence); silence.connect(LV.ctxIn.destination);
+    LV.node = node;
+  }catch(e){
+    const node = LV.ctxIn.createScriptProcessor(4096,1,1); node.onaudioprocess = ev => send(new Float32Array(ev.inputBuffer.getChannelData(0))); src.connect(node); node.connect(LV.ctxIn.destination); LV.node = node;
+  }
+}
+function liveStop(){
+  LV.on = false; clearTimeout(LV.timer);
+  try{ LV.session && LV.session.close(); }catch(e){} LV.session = null;
+  try{ LV.node && LV.node.disconnect(); }catch(e){} LV.node = null;
+  if(LV.mic){ LV.mic.getTracks().forEach(t=>t.stop()); LV.mic = null; }
+  try{ LV.ctxIn && LV.ctxIn.close(); }catch(e){} LV.ctxIn = null;
+}
+
+/* ================= المسار والتحميل ================= */
+const ROUTES = {home:'الرئيسية',books:'الكتب',competitions:'المسابقات',announcements:'الإعلانات',visitors:'الزائرون',support:'الدعم الذكي',reception:'الاستقبال',dashboard:'لوحة التحكم'};
+const NAVICON = {home:'grid',books:'book',competitions:'trophy',announcements:'mega',visitors:'users',support:'chat',reception:'camera',dashboard:'star'};
+let route = 'home', token = 0;
+function routeFromHash(){ const seg = (location.hash||'').replace(/^#\/?/,'').split(/[\/?]/)[0]; return ROUTES[seg] ? seg : 'home'; }
+function go(r){ route = ROUTES[r] ? r : 'home'; try{ history.replaceState(null,'', route==='home' ? location.pathname+location.search : '#/'+route); }catch(e){} render(); window.scrollTo(0,0); }
+function setNav(){ const el=$('#nav'); if(el) el.innerHTML = Object.keys(ROUTES).filter(k=>(k!=='reception'||session) && (S.role!=='kiosk'||k==='reception')).map(k=>`<a href="#/${k==='home'?'':k}" class="${k===route?'on':''}" ${k===route?'aria-current="page"':''}>${ic(NAVICON[k])}${ROUTES[k]}</a>`).join(''); }
+
+async function render(){
+  const my = ++token;
+  if(session && !S.role){ try{ await ensureRole(); }catch(e){} }
+  if(S.role==='kiosk' && route!=='reception') route='reception';
+  setNav(); if(route!=='reception') rcStop(); if(route!=='support'){ voiceStop(); liveStop(); }
+  document.title = (route==='home' ? '' : ROUTES[route]+' | ') + (S.settings ? S.settings.site_name : 'مكتبة الأمين الذكية');
+  const app = $('#app');
+  if(!app) return;
+  app.innerHTML = '<div class="skel"><div class="spin"></div>جارٍ التحميل...</div>';
+  loadSettings().catch(()=>{});
+  try{ const html = await pages[route](); if(my!==token) return; app.innerHTML = html; }
+  catch(e){ if(my!==token) return; app.innerHTML = errCard(e.message); setChip(false); }
+}
+
+/* ================= الأحداث ================= */
+const menuBtn = $('#menuBtn'); if(menuBtn) menuBtn.addEventListener('click',()=>{ const o=$('#nav').classList.toggle('open'); menuBtn.setAttribute('aria-expanded',o); });
+window.addEventListener('hashchange',()=>{ const r=routeFromHash(); if(r!==route){ route=r; render(); window.scrollTo(0,0); } });
+
+document.addEventListener('input', e=>{ if(e.target.id==='bq'){ S.q=e.target.value; const l=$('#booklist'); if(l) l.innerHTML=bookListHTML(); } });
+
+const dlg = $('#dlg');
+function openDlg(html){ if(!dlg) return; dlg.innerHTML = html; if(!dlg.open) dlg.showModal(); }
+function closeDlg(){ if(dlg && dlg.open) dlg.close(); }
+if(dlg){
+  dlg.addEventListener('click', e=>{ if(e.target===dlg || e.target.closest('[data-act="dlg-close"]')) closeDlg(); });
+  dlg.addEventListener('close', ()=>{ enStop(); });
+}
+
+const bookForm = b => `<h3>${b?'تعديل كتاب':'إضافة كتاب'}</h3><form data-form="book"><input type="hidden" name="id" value="${b?b.id:''}"><div class="f2">
+  <div><label class="l">الرقم العام</label><input class="field" name="accession_no" value="${esc(b&&b.accession_no)}"></div>
+  <div><label class="l">رقم التصنيف العشري</label><input class="field" name="dewey" value="${esc(b&&b.dewey)}" inputmode="decimal" placeholder="مثال: 821"></div>
+  <div class="full"><label class="l">عنوان الكتاب *</label><input class="field" name="title" value="${esc(b&&b.title)}" required></div>
+  <div><label class="l">المؤلف</label><input class="field" name="author" value="${esc(b&&b.author)}"></div>
+  <div><label class="l">الناشر</label><input class="field" name="publisher" value="${esc(b&&b.publisher)}"></div></div>
+  <div class="err" id="derr" hidden></div><div class="btns"><button class="btn red" type="submit">حفظ</button><button class="btn line" type="button" data-act="dlg-close">إلغاء</button></div></form>`;
+
+document.addEventListener('click', async e=>{
+  const a = e.target.closest('a[href^="#"]');
+  if(a){ e.preventDefault(); const h=a.getAttribute('href'); go(h==='#'||h==='#/' ? 'home' : h.replace(/^#\//,'').split(/[\/?]/)[0]); return; }
+  const cat = e.target.closest('[data-cat]'); if(cat){ S.cat=cat.dataset.cat; $('#cats').innerHTML=catsHTML(); $('#booklist').innerHTML=bookListHTML(); return; }
+  const tab = e.target.closest('[data-tab]'); if(tab){ S.tab=tab.dataset.tab; render(); return; }
+  const qk = e.target.closest('[data-q]'); if(qk){ ask(qk.dataset.q); return; }
+  const b = e.target.closest('[data-act]'); if(!b) return;
+  const act = b.dataset.act, id = b.dataset.id;
+  try{
+    if(act==='retry') render();
+    else if(act==='voice-toggle'){ V.on ? voiceStop() : voiceStart(); }
+    else if(act==='rc-start') await rcStart();
+    else if(act==='rc-stop'){ rcStop(); }
+    else if(act==='person-add'){ EN.samples=[]; openDlg(personForm(null)); }
+    else if(act==='book-add') openDlg(bookForm(null));
+    else if(act==='book-borrow'){
+      const bk=S.books.find(x=>x.id===id); openDlg(`<h3>إعارة «${esc(bk.title)}»</h3><form data-form="borrow"><input type="hidden" name="id" value="${id}"><div class="f2"><div class="full"><label class="l">اسم المستعير *</label><input class="field" name="borrower_name" required maxlength="80"></div><div class="full"><label class="l">تاريخ الإرجاع</label><input class="field" type="date" name="due_date" value="${addDays(7)}"></div></div><div class="err" id="derr" hidden></div><div class="btns"><button class="btn red" type="submit">تأكيد الإعارة</button><button class="btn line" type="button" data-act="dlg-close">إلغاء</button></div></form>`);
+    }
+    else if(act==='logout'){ await logout(); S.tab='ov'; toast('تم تسجيل الخروج'); render(); }
+  }catch(err){ toast(err.message); }
+});
+
+async function ask(q){
+  q = (q||'').trim(); if(!q) return;
+  S.chat.push({me:true,t:q},{typing:true}); drawChat();
+  let r; try{ r = await chatReply(q); }catch(e){ r = 'حدث خطأ في الاتصال.'; }
+  S.chat = S.chat.filter(m=>!m.typing); S.chat.push({t:r}); drawChat();
+  return r;
+}
+
+document.addEventListener('submit', async e=>{
+  const f = e.target.closest('[data-form]'); if(!f) return; e.preventDefault();
+  const type = f.dataset.form, d = Object.fromEntries(new FormData(f).entries());
+  try{
+    if(type==='hero-search'){ S.q = d.q||''; S.cat='all'; go('books'); }
+    else if(type==='chat'){ f.reset(); ask(d.q); }
+    else if(type==='login'){ await login(d.email.trim(), d.password); S.tab='ov'; render(); toast('أهلًا بك'); }
+    else if(type==='visitor'){
+      await api('visitors',{method:'POST',body:{name:d.name.trim(),class_name:(d.class_name||'').trim()||null,purpose:d.purpose,source:'form'},prefer:'return=minimal',anon:true});
+      S.justVisited=true; render();
+    }
+    else if(type==='borrow'){
+      await api('books?id=eq.'+encodeURIComponent(d.id),{method:'PATCH',body:{status:'borrowed',borrower_name:d.borrower_name.trim(),due_date:d.due_date||null}});
+      await loadBooks(true); closeDlg(); $('#booklist').innerHTML=bookListHTML(); toast('تم تسجيل الإعارة');
+    }
+  }catch(err){ toast(err.message); }
+});
+
+/* ================= البداية ================= */
+if('serviceWorker' in navigator && /^https?:/.test(location.protocol)){ window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
+route = routeFromHash();
+render();
+</script>
+</body>
+</html>
+ class="l">وضع النشر</label><select class="field" name="publish_mode"><option value="review" ${a.publish_mode==='review'?'selected':''}>مراجعتي قبل النشر (موصى به)</option><option value="auto_simple" ${a.publish_mode==='auto_simple'?'selected':''}>نشر تلقائي للأخبار القوية البسيطة</option></select></div>
     <div><label class="l">الفحص كل (ساعات)</label><input class="field" type="number" name="check_hours" min="1" max="48" value="${a.check_hours||3}"></div>
     <div><label class="l">أقل درجة صلة للعرض عليك (من ١٠)</label><input class="field" type="number" name="min_relevance" min="0" max="10" value="${a.min_relevance??6}"></div>
     <label class="opt"><input type="checkbox" name="quiet_night" ${a.quiet_night?'checked':''}><div><b>عدم الإزعاج ليلًا</b><span>لا يرسل تيليجرام من ١١ مساءً إلى ٧ صباحًا</span></div></label></div>
