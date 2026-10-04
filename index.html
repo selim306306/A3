@@ -195,6 +195,25 @@ footer.foot .cr{background:rgba(255,255,255,.16);padding:7px 16px;border-radius:
 .skel{padding:60px 0;text-align:center;color:var(--muted)}
 .spin{width:34px;height:34px;border-radius:50%;border:4px solid var(--rose);border-top-color:var(--red);margin:0 auto 10px;animation:sp 1s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
 
+
+/* phase 2: reception, people, voice */
+.rc{position:relative;border-radius:28px;overflow:hidden;background:linear-gradient(160deg,#3A1A20,#1B0A0E);aspect-ratio:4/5;max-height:72vh;margin:0 auto;box-shadow:0 40px 70px -34px rgba(168,12,32,.85);border:5px solid #fff;outline:2px solid var(--rose)}
+.rc video{width:100%;height:100%;object-fit:cover;display:block}
+.mir{transform:scaleX(-1)}
+.rcst{position:absolute;top:12px;inset-inline-start:12px;background:rgba(0,0,0,.5);color:#fff;border-radius:999px;padding:3px 13px;font-size:.8rem;z-index:2}
+.rcst:empty{display:none}
+.rcard{position:absolute;inset-inline:12px;bottom:12px;background:#fff;border-radius:22px;padding:12px 16px;display:flex;gap:12px;align-items:center;box-shadow:0 14px 30px -12px rgba(0,0,0,.55);z-index:2;animation:rise .5s both}
+.rcard .av{width:48px;height:48px;border-radius:15px;background:var(--grad-sun);display:grid;place-items:center;color:var(--red-deep);flex:none}
+.rcard b{display:block;font-family:'Readex Pro';line-height:1.35}.rcard small{color:var(--muted)}
+.rcard .pill{margin-inline-start:auto}
+.opt{display:flex;gap:12px;padding:12px;border:2px solid var(--rose);border-radius:16px;cursor:pointer;align-items:flex-start}
+.opt:has(input:checked){border-color:var(--red);background:var(--blush)}
+.opt b{display:block;font-size:.92rem}.opt span{color:var(--muted);font-size:.82rem}
+.vwrap{border-radius:18px;overflow:hidden;background:#1B0A0E;aspect-ratio:4/3;max-height:240px}.vwrap video{width:100%;height:100%;object-fit:cover}
+.say .micb{background:#fff;color:var(--red);border:2px solid var(--rose)}
+.say .micb.on{background:var(--red);color:#fff;border-color:var(--red);animation:pu2 1.4s infinite}
+@keyframes pu2{50%{box-shadow:0 0 0 8px rgba(225,29,46,.18)}}
+.vs{padding:0 16px 8px;color:var(--red);font-weight:600;font-size:.88rem;background:#fff}
 @media(max-width:640px){
 html{font-size:14px}.wrap{padding:0 14px}.bar{min-height:58px;gap:8px}
 .logo{width:36px;height:36px;border-radius:12px}.logo svg{width:20px;height:20px}.logo::after{width:11px;height:11px;border-width:2px}
@@ -272,7 +291,7 @@ const IC = {
   up:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/>',
   back:'<path d="m15 18-6-6 6-6"/>', star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3L8 14.2 3 9.3l6.9-1z"/>',
   edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
-  check:'<path d="M20 6 9 17l-5-5"/>', lock:'<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>'
+  check:'<path d="M20 6 9 17l-5-5"/>', mic:'<rect width="6" height="12" x="9" y="2" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1M12 18v4"/>', camera:'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/>', lock:'<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>'
 };
 const ic = n => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
 const DEWEY = {0:'عموميات',1:'الفلسفة',2:'الأديان',3:'العلوم الاجتماعية',4:'اللغات',5:'العلوم الطبيعية',6:'العلوم التطبيقية',7:'الفنون',8:'الأدب',9:'التاريخ والجغرافيا'};
@@ -410,7 +429,7 @@ pages.home = async () => {
       <h1 class="big rise d2">مكتبة <span>الأمين</span> الذكية</h1>
       <p class="lead rise d3">ابحث عن كتابك، سجّل زيارتك، واطّلع على المسابقات والإعلانات. كل ما تحتاجه من مكتبة المدرسة في مكان واحد.</p>
       <form class="search rise d4" data-form="hero-search" role="search"><input name="q" placeholder="ابحث بعنوان الكتاب أو اسم المؤلف" aria-label="ابحث عن كتاب" autocomplete="off"><button class="btn red" type="submit">${ic('search')} بحث</button></form>
-      <div class="cta rise d5"><a class="btn sun" href="#/visitors">${ic('users')} تسجيل زائر</a><a class="btn line" href="#/support">${ic('chat')} اسأل المساعد</a></div>
+      <div class="cta rise d5"><a class="btn sun" href="#/visitors">${ic('users')} تسجيل زائر</a><a class="btn line" href="#/support">${ic('chat')} اسأل المساعد</a>${session?`<a class="btn out" href="#/reception">${ic('camera')} وضع الاستقبال</a>`:''}</div>
     </div>
     <div class="arch rise d3"><div class="frame"><div class="sun"></div>${shelfSVG()}</div>
       <div class="badge b1"><span class="dot">${ic('book')}</span><div><b>${nf(s.books)}</b><div style="font-weight:500;font-size:.75rem;color:var(--muted)">كتاب في الفهرس</div></div></div>
@@ -459,10 +478,10 @@ pages.visitors = async () => {
 pages.support = async () => {
   if(!S.chat.length) S.chat.push({t:'أهلًا بك! أنا مساعد مكتبة الأمين. اسألني عن كتاب أو مسابقة أو قواعد الاستعارة.'});
   return pageHead('الدعم الذكي','اسأل عن كتاب أو مسابقة أو قواعد الاستعارة.')+`<section class="b" style="padding-top:18px"><div class="wrap" style="max-width:780px"><div class="chat">
-    <div class="chat-head"><span class="av">${ic('chat')}</span><div><b>مساعد المكتبة</b><br><small>يبحث في الفهرس والمسابقات والإعلانات. المحادثة الصوتية قريبًا</small></div></div>
+    <div class="chat-head"><span class="av">${ic('chat')}</span><div><b>مساعد المكتبة</b><br><small>يبحث في الفهرس والمسابقات والإعلانات. اضغط الميكروفون للمحادثة الصوتية</small></div></div>
     <div class="msgs" id="msgs" aria-live="polite">${chatHTML()}</div>
     <div class="quick"><button data-q="ما المسابقات الجارية؟">ما المسابقات الجارية؟</button><button data-q="قواعد الاستعارة">قواعد الاستعارة</button><button data-q="مواعيد المكتبة">مواعيد المكتبة</button><button data-q="أحدث إعلان">أحدث إعلان</button></div>
-    <form class="say" data-form="chat"><input name="q" placeholder="اكتب سؤالك هنا" autocomplete="off" aria-label="سؤالك"><button type="submit" aria-label="إرسال">${ic('send')}</button></form></div></div></section>`;
+    <div class="vs" id="vs" hidden></div><form class="say" data-form="chat"><input name="q" placeholder="اكتب سؤالك هنا" autocomplete="off" aria-label="سؤالك"><button type="button" class="micb" id="micBtn" data-act="voice-toggle" aria-label="محادثة صوتية">${ic('mic')}</button><button type="submit" aria-label="إرسال">${ic('send')}</button></form></div></div></section>`;
 };
 const chatHTML = () => S.chat.map(m=> m.typing ? `<div class="m bot"><span class="typing"><i></i><i></i><i></i></span></div>` : `<div class="m ${m.me?'me':'bot'}">${esc(m.t)}</div>`).join('');
 function drawChat(){ const el=$('#msgs'); if(!el) return; el.innerHTML=chatHTML(); el.scrollTop=el.scrollHeight; }
@@ -538,7 +557,7 @@ async function tabHTML(t){
     <div class="btns"><button class="btn red" type="submit">${ic('trophy')} إضافة</button></div></form>
     <div class="card"><h3>المسابقات الحالية</h3>${comps.map(c=>compItem(c,true)).join('')||'<small>لا توجد مسابقات</small>'}</div>`;
   }
-  if(t==='pp') return soonCard('الاستقبال والأشخاص',['كاميرا الاستقبال والتعرّف على الزوار','إضافة الأشخاص وصورهم وصيغ الترحيب','«مرحبًا مرة أخرى» عند العودة خلال ٢٤ ساعة','تسجيل الزيارة تلقائيًا'],'المرحلة الثانية');
+  if(t==='pp') return await ppHTML();
   if(t==='ai') return soonCard('Ai',['متابعة الأخبار وتحليلها وإعادة صياغتها','صندوق المراجعة قبل النشر','متابعة الإعارات المتأخرة والتقارير التلقائية','التواصل معك على تيليجرام'],'المرحلة الثالثة');
   if(t==='ap') return soonCard('API والربط',['اختيار النموذج وإدخال المفتاح وتجربة الاتصال','حد الإنفاق بالدولار','ربط تيليجرام وواتساب وغيرهما'],'المرحلتين الثانية والثالثة');
   if(t==='st'){
@@ -556,15 +575,226 @@ async function tabHTML(t){
   return '';
 }
 
+
+/* ================= الصوت (محادثة صوتية) ================= */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const V = {on:false, rec:null};
+let voices = [];
+function loadVoices(){ try{ voices = speechSynthesis.getVoices() || []; }catch(e){} }
+loadVoices(); try{ speechSynthesis.addEventListener('voiceschanged', loadVoices); }catch(e){}
+const pickVoice = () => voices.find(v=>/^ar[-_]EG/i.test(v.lang)) || voices.find(v=>/^ar/i.test(v.lang)) || null;
+function speak(text){
+  return new Promise(res=>{
+    try{
+      if(!('speechSynthesis' in window)) return res();
+      const u = new SpeechSynthesisUtterance(String(text).replace(/[•\n]+/g,'، '));
+      u.lang = 'ar-EG'; const v = pickVoice(); if(v) u.voice = v;
+      u.onend = u.onerror = () => res();
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){ res(); }
+  });
+}
+function listenOnce(){
+  return new Promise((res,rej)=>{
+    const r = new SR(); V.rec = r; r.lang = 'ar-EG'; r.interimResults = false; r.maxAlternatives = 1; let got = false;
+    r.onresult = e => { got = true; res(e.results[0][0].transcript); };
+    r.onerror = e => { if(!got) rej(e.error || 'error'); };
+    r.onend = () => { if(!got) rej('no-speech'); };
+    try{ r.start(); }catch(e){ rej('start-failed'); }
+  });
+}
+function setVS(t){ const x = $('#vs'); if(x){ x.hidden = !t; x.textContent = t || ''; } }
+async function voiceLoop(){
+  while(V.on){
+    setVS('أسمعك الآن...'); let text;
+    try{ text = await listenOnce(); }
+    catch(err){
+      if(!V.on) break;
+      if(err==='not-allowed'||err==='service-not-allowed'){ toast('اسمح باستخدام الميكروفون من إعدادات المتصفح'); break; }
+      if(err==='network'){ toast('التعرّف على الصوت يحتاج اتصالًا بالإنترنت'); break; }
+      await new Promise(r=>setTimeout(r,400)); continue;
+    }
+    if(!V.on) break;
+    setVS('بفكّر...'); const reply = await ask(text); if(!V.on) break;
+    setVS('بتكلم... المس الميكروفون لإيقافي'); await speak(reply);
+  }
+  voiceStop();
+}
+function voiceStart(){ if(!SR){ toast('المتصفح لا يدعم التعرّف على الصوت، جرّب Chrome'); return; } V.on = true; const m=$('#micBtn'); if(m) m.classList.add('on'); voiceLoop(); }
+function voiceStop(){ V.on = false; try{ V.rec && V.rec.abort(); }catch(e){} try{ speechSynthesis.cancel(); }catch(e){} setVS(''); const m=$('#micBtn'); if(m) m.classList.remove('on'); }
+
+/* ================= التعرّف على الوجوه ================= */
+const FACE_JS = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.js';
+const FACE_MODELS = ['https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model','https://raw.githubusercontent.com/vladmandic/face-api/master/model'];
+let faceP = null;
+function loadFace(){
+  if(faceP) return faceP;
+  faceP = (async()=>{
+    if(!window.faceapi){
+      await new Promise((ok,no)=>{ const s=document.createElement('script'); s.src=FACE_JS; s.onload=ok; s.onerror=()=>no(new Error('تعذّر تحميل مكتبة التعرّف على الوجوه، تأكد من الإنترنت')); document.head.appendChild(s); });
+    }
+    for(const base of FACE_MODELS){
+      try{ await Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri(base), faceapi.nets.faceLandmark68Net.loadFromUri(base), faceapi.nets.faceRecognitionNet.loadFromUri(base)]); return true; }catch(e){}
+    }
+    throw new Error('تعذّر تحميل نماذج التعرّف على الوجوه');
+  })().catch(e=>{ faceP = null; throw e; });
+  return faceP;
+}
+async function faceOf(el){
+  const r = await faceapi.detectSingleFace(el, new faceapi.TinyFaceDetectorOptions({inputSize:320, scoreThreshold:0.5})).withFaceLandmarks().withFaceDescriptor();
+  return r ? Array.from(r.descriptor) : null;
+}
+function dist(a,b){ let s=0; for(let i=0;i<a.length;i++){ const d=a[i]-b[i]; s+=d*d; } return Math.sqrt(s); }
+function bestMatch(desc, people){
+  let best=null, bd=99;
+  for(const p of people){ for(const d of (p.face_descriptors||[])){ if(d.length!==desc.length) continue; const x=dist(desc,d); if(x<bd){ bd=x; best=p; } } }
+  return {person:best, distance:bd};
+}
+const camErr = e => e && e.name==='NotAllowedError' ? 'اسمح باستخدام الكاميرا من إعدادات المتصفح' : e && e.name==='NotFoundError' ? 'لا توجد كاميرا في هذا الجهاز' : (e && e.message) || 'تعذّر تشغيل الكاميرا';
+
+/* ---------- وضع الاستقبال ---------- */
+const RP_DEF = {returnHours:24, cooldownMin:5, voice:true, log:true, countRepeats:false, facing:'user', thresh:0.5};
+const rprefs = () => Object.assign({}, RP_DEF, store.get('reception',{}));
+const DEF_FIRST = 'أهلًا {الاسم}، نورت المكتبة', DEF_RET = 'مرحبًا مرة أخرى يا {الاسم}';
+const ROLES = {official:'مسؤول بالإدارة',supervisor:'موجه',teacher:'معلم',student:'طالب',parent:'ولي أمر',visitor:'زائر'};
+const RC = {stream:null,running:false,people:[],streak:{id:null,n:0},unk:0,lastGreet:{},lastUnknown:0,timer:null,wake:null,hide:null};
+function ago(ms){ const m=Math.max(1,Math.round(ms/60000)); if(m<60) return 'منذ '+nf(m)+' دقيقة'; const h=Math.round(m/60); return 'منذ '+nf(h)+' ساعة'; }
+function fillGreet(tpl,p,last){ return String(tpl).replace(/\{الاسم\}/g,p.full_name).replace(/\{الصفة\}/g,p.job_title||ROLES[p.role]||'').replace(/\{آخر_زيارة\}/g,last?ago(Date.now()-last):''); }
+function rcStop(){
+  RC.running=false; clearTimeout(RC.timer);
+  if(RC.stream){ RC.stream.getTracks().forEach(t=>t.stop()); RC.stream=null; }
+  if(RC.wake){ try{ RC.wake.release(); }catch(e){} RC.wake=null; }
+  const v=$('#rcVideo'); if(v) v.srcObject=null;
+  const a=$('#rcStart'), b=$('#rcStop'); if(a) a.hidden=false; if(b) b.hidden=true;
+}
+async function rcStart(){
+  const st=$('#rcStatus'), P=rprefs();
+  try{
+    st.textContent='جارٍ تحميل نماذج التعرّف...'; await loadFace();
+    st.textContent='جارٍ تحميل بيانات الأشخاص...';
+    const all = await api('people?select=id,full_name,role,job_title,greeting_first,greeting_return,face_descriptors,last_seen_at&consent=eq.true');
+    RC.people = all.filter(p=>Array.isArray(p.face_descriptors) && p.face_descriptors.length);
+    st.textContent='جارٍ تشغيل الكاميرا...';
+    RC.stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:P.facing,width:{ideal:640},height:{ideal:480}},audio:false});
+    const v=$('#rcVideo'); v.srcObject=RC.stream; v.classList.toggle('mir', P.facing==='user'); await v.play();
+    try{ RC.wake = await navigator.wakeLock.request('screen'); }catch(e){}
+    RC.running=true; RC.streak={id:null,n:0}; RC.unk=0;
+    $('#rcStart').hidden=true; $('#rcStop').hidden=false;
+    st.textContent = RC.people.length ? 'الاستقبال يعمل' : 'الاستقبال يعمل (لا يوجد أشخاص مسجّلون بعد)';
+    rcLoop();
+  }catch(e){ rcStop(); st.textContent=''; toast(camErr(e)); }
+}
+async function rcLoop(){
+  if(!RC.running) return;
+  const v=$('#rcVideo'), P=rprefs();
+  try{
+    if(v && v.readyState>=2){
+      const desc = await faceOf(v);
+      if(desc){
+        const {person,distance} = bestMatch(desc, RC.people);
+        if(person && distance < P.thresh){
+          RC.unk=0; RC.streak = RC.streak.id===person.id ? {id:person.id,n:RC.streak.n+1} : {id:person.id,n:1};
+          if(RC.streak.n>=2) await rcGreet(person);
+        }else{ RC.streak={id:null,n:0}; RC.unk++; if(RC.unk>=3) rcUnknown(); }
+      }else{ RC.streak={id:null,n:0}; RC.unk=0; }
+    }
+  }catch(e){}
+  if(RC.running) RC.timer=setTimeout(rcLoop,600);
+}
+function showGreet(p,text,again){
+  const c=$('#rcCard'); if(!c) return;
+  c.innerHTML = `<span class="av">${ic('users')}</span><div><b>${esc(text)}</b><small>${p?esc(p.job_title||ROLES[p.role]||''):'أهلًا بك'}</small></div>${again?'<span class="pill soon">زيارة متكررة</span>':''}`;
+  c.hidden=false; clearTimeout(RC.hide); RC.hide=setTimeout(()=>{ c.hidden=true; }, 7000);
+}
+async function rcGreet(p){
+  const P=rprefs(), now=Date.now();
+  if(RC.lastGreet[p.id] && now-RC.lastGreet[p.id] < P.cooldownMin*60000) return;
+  RC.lastGreet[p.id]=now;
+  const last = p.last_seen_at ? new Date(p.last_seen_at).getTime() : 0;
+  const again = !!last && (now-last) < P.returnHours*3600000;
+  const text = fillGreet(again ? (p.greeting_return||DEF_RET) : (p.greeting_first||DEF_FIRST), p, last);
+  showGreet(p,text,again); if(P.voice) speak(text);
+  p.last_seen_at = new Date(now).toISOString();
+  try{
+    await api('people?id=eq.'+encodeURIComponent(p.id),{method:'PATCH',body:{last_seen_at:p.last_seen_at},prefer:'return=minimal'});
+    if(P.log && (!again || P.countRepeats)) await api('visitors',{method:'POST',body:{name:p.full_name,purpose:'زيارة (كاميرا)',person_id:p.id,source:'camera',is_returning:again},prefer:'return=minimal'});
+  }catch(e){ toast('تعذّر حفظ الزيارة: '+e.message); }
+}
+function rcUnknown(){
+  const P=rprefs(), now=Date.now(); if(now-RC.lastUnknown < 25000) return; RC.lastUnknown=now;
+  const t='أهلًا بك في مكتبة الأمين'; showGreet(null,t,false); if(P.voice) speak(t);
+}
+pages.reception = async () => {
+  if(!(await ensureAdmin())) return pageHead('وضع الاستقبال','يرحّب بالزوار بأسمائهم عن طريق الكاميرا.')+`<section class="b" style="padding-top:18px"><div class="wrap" style="max-width:560px"><div class="card" style="text-align:center"><h3>يلزم تسجيل دخول المدير</h3><p style="color:var(--muted)">وضع الاستقبال يقرأ بصمات الوجوه المحمية، لذلك لا يعمل إلا بحسابك.</p><div class="btns" style="justify-content:center"><a class="btn red" href="#/dashboard">تسجيل الدخول</a></div></div></div></section>`;
+  const P=rprefs();
+  return pageHead('وضع الاستقبال','شغّل الكاميرا ودعها مفتوحة عند باب المكتبة، وسيرحّب بالزوار المسجّلين بأسمائهم.')+`<section class="b" style="padding-top:18px"><div class="wrap" style="max-width:560px">
+    <div class="rc"><video id="rcVideo" playsinline muted class="${P.facing==='user'?'mir':''}"></video><div class="rcst" id="rcStatus"></div><div class="rcard" id="rcCard" hidden></div></div>
+    <div class="btns" style="justify-content:center"><button id="rcStart" class="btn red" data-act="rc-start">${ic('camera')} تشغيل الكاميرا</button><button id="rcStop" class="btn out" data-act="rc-stop" hidden>إيقاف</button><button class="btn line" data-act="rc-flip">تبديل الكاميرا (${P.facing==='user'?'أمامية':'خلفية'})</button></div>
+    <div class="note" style="margin-top:14px">الصور لا تُحفظ ولا تُرسل لأي جهة، فالمعالجة تتم داخل الجهاز. يُقارَن الوجه بالبصمات المسجّلة فقط. اترك الشاشة مفتوحة وفي إضاءة جيدة.</div>
+  </div></section>`;
+};
+
+/* ---------- إدارة الأشخاص وتسجيل البصمات ---------- */
+async function ensureAdmin(){
+  if(!session) return false; if(S.verified) return true;
+  const ok = await api('rpc/is_admin',{method:'POST',body:{}}).catch(()=>false);
+  if(ok===true){ S.verified=true; return true; } await logout(); return false;
+}
+const EN = {samples:[], stream:null};
+function enStop(){ if(EN.stream){ EN.stream.getTracks().forEach(t=>t.stop()); EN.stream=null; } }
+function enCount(){ const x=$('#enCount'); if(x) x.textContent = nf(EN.samples.length)+' عينة. الأفضل ٣ إلى ٥ بزوايا وإضاءة مختلفة.'; }
+const enrollHTML = () => `<div class="enr"><label class="l" style="margin-top:14px">بصمة الوجه (اختياري، وتحتاج موافقة)</label>
+  <div class="vwrap"><video id="enVideo" playsinline muted class="mir"></video></div>
+  <div class="btns" style="margin-top:8px"><button type="button" class="btn line sm" data-act="en-cam">${ic('camera')} تشغيل الكاميرا</button><button type="button" class="btn sun sm" data-act="en-snap" disabled>التقاط</button><label class="btn line sm" style="cursor:pointer">${ic('up')} رفع صور<input type="file" id="enFiles" accept="image/*" multiple hidden></label></div>
+  <div id="enCount" style="color:var(--muted);font-size:.85rem;margin-top:6px">٠ عينة. الأفضل ٣ إلى ٥ بزوايا وإضاءة مختلفة.</div>
+  <label class="opt" style="margin-top:10px"><input type="checkbox" name="consent"><div><b>تم أخذ موافقة الشخص (أو ولي أمره إذا كان طالبًا)</b><span>لحفظ بصمة الوجه واستخدامها في الترحيب فقط.</span></div></label></div>`;
+const personForm = p => `<h3>${p?'تعديل بيانات الشخص':'إضافة شخص'}</h3><form data-form="${p?'person-edit':'person'}"><input type="hidden" name="id" value="${p?p.id:''}"><div class="f2">
+  <div class="full"><label class="l">الاسم *</label><input class="field" name="full_name" value="${esc(p&&p.full_name)}" required maxlength="100"></div>
+  <div><label class="l">الصفة</label><select class="field" name="role">${Object.keys(ROLES).map(k=>`<option value="${k}" ${p&&p.role===k?'selected':''}>${ROLES[k]}</option>`).join('')}</select></div>
+  <div><label class="l">الوظيفة / المسمى</label><input class="field" name="job_title" value="${esc(p&&p.job_title)}" maxlength="100"></div>
+  <div class="full"><label class="l">ترحيب الزيارة الأولى</label><input class="field" name="greeting_first" value="${esc(p&&p.greeting_first)}" placeholder="${DEF_FIRST}"></div>
+  <div class="full"><label class="l">ترحيب العودة خلال المدة</label><input class="field" name="greeting_return" value="${esc(p&&p.greeting_return)}" placeholder="${DEF_RET}"></div></div>
+  <div style="color:var(--muted);font-size:.82rem;margin-top:6px">المتغيرات: {الاسم} {الصفة} {آخر_زيارة}</div>
+  ${p?'':enrollHTML()}<div class="err" id="derr" hidden></div><div class="btns"><button class="btn red" type="submit">حفظ</button><button class="btn line" type="button" data-act="dlg-close">إلغاء</button></div></form>`;
+function personRow(p){
+  const n=(p.face_descriptors||[]).length;
+  return `<div class="rw"><div style="flex:1;min-width:170px"><b>${esc(p.full_name)}</b><span class="s">${ROLES[p.role]||''}${p.job_title?' — '+esc(p.job_title):''}${p.last_seen_at?' · آخر زيارة '+fmtDate(p.last_seen_at):''}</span></div>
+  <span class="pill ${n?'free':'wait'}">${n?nf(n)+' عينة':'بدون بصمة'}</span>
+  <span class="acts"><button class="mini" data-act="person-faces" data-id="${p.id}">${ic('camera')} صور</button><button class="mini" data-act="person-edit" data-id="${p.id}" aria-label="تعديل">${ic('edit')}</button>${n?`<button class="mini" data-act="person-delfaces" data-id="${p.id}">حذف البصمات</button>`:''}<button class="mini" data-act="person-del" data-id="${p.id}" aria-label="حذف">${ic('trash')}</button></span></div>`;
+}
+async function ppHTML(){
+  const ppl = await api('people?select=id,full_name,role,job_title,greeting_first,greeting_return,consent,face_descriptors,last_seen_at,created_at&order=created_at.desc&limit=500');
+  S.people = ppl; const P = rprefs();
+  return `<div class="card"><div class="head" style="margin-bottom:8px"><h3 style="margin:0">الأشخاص المسجّلون</h3><div class="acts"><button class="btn red sm" data-act="person-add">${ic('plus')} إضافة شخص</button><a class="btn line sm" href="#/reception">${ic('camera')} وضع الاستقبال</a></div></div>
+  <div class="note">الصور لا تُحفظ، يُحفظ فقط تمثيل رقمي للوجه ولا يقرأه غيرك. والطلاب يلزم لهم موافقة ولي الأمر.</div>
+  ${ppl.length ? ppl.map(personRow).join('') : '<div class="empty"><b>لا يوجد أشخاص بعد</b>أضف أول شخص لتبدأ.</div>'}</div>
+  <form class="card" data-form="rprefs"><h3>إعدادات الاستقبال (على هذا الجهاز)</h3><div class="f2">
+    <div><label class="l">اعتباره عائدًا لو رجع خلال</label><select class="field" name="returnHours">${[12,24,48].map(h=>`<option value="${h}" ${P.returnHours===h?'selected':''}>${nf(h)} ساعة</option>`).join('')}</select></div>
+    <div><label class="l">عدم تكرار الترحيب قبل (دقائق)</label><input class="field" type="number" min="1" max="60" name="cooldownMin" value="${P.cooldownMin}"></div>
+    <div><label class="l">دقة التعرّف</label><select class="field" name="thresh">${[[0.45,'صارمة (أقل أخطاء)'],[0.5,'متوازنة'],[0.55,'متساهلة']].map(x=>`<option value="${x[0]}" ${P.thresh===x[0]?'selected':''}>${x[1]}</option>`).join('')}</select></div>
+    <label class="opt"><input type="checkbox" name="voice" ${P.voice?'checked':''}><div><b>ترحيب صوتي</b><span>ينطق الترحيب بصوت الجهاز</span></div></label>
+    <label class="opt"><input type="checkbox" name="log" ${P.log?'checked':''}><div><b>تسجيل الزيارة تلقائيًا</b><span>في سجل الزائرين</span></div></label>
+    <label class="opt"><input type="checkbox" name="countRepeats" ${P.countRepeats?'checked':''}><div><b>عدّ الزيارات المتكررة</b><span>لو مقفول، يُحسب مرة عند أول زيارة في المدة</span></div></label></div>
+    <div class="btns"><button class="btn red" type="submit">حفظ</button></div></form>`;
+}
+const loadImg = f => new Promise((ok,no)=>{ const u=URL.createObjectURL(f), i=new Image(); i.onload=()=>{ ok(i); }; i.onerror=()=>no(new Error('صورة غير صالحة')); i.src=u; });
+document.addEventListener('change', async e=>{
+  if(e.target.id!=='enFiles') return;
+  try{ await loadFace(); }catch(err){ toast(err.message); return; }
+  let ok=0, bad=0;
+  for(const f of e.target.files){ try{ const d = await faceOf(await loadImg(f)); if(d && EN.samples.length<10){ EN.samples.push(d.map(x=>+x.toFixed(4))); ok++; } else bad++; }catch(err){ bad++; } }
+  enCount(); toast(ok ? 'تمت إضافة '+nf(ok)+' عينة'+(bad?' وتعذّر '+nf(bad):'') : 'لم يتم العثور على وجه واضح في الصور');
+});
+
 /* ================= المسار ================= */
-const ROUTES = {home:'الرئيسية',books:'الكتب',competitions:'المسابقات',announcements:'الإعلانات',visitors:'الزائرون',support:'الدعم الذكي',dashboard:'لوحة التحكم'};
-const NAVICON = {home:'grid',books:'book',competitions:'trophy',announcements:'mega',visitors:'users',support:'chat',dashboard:'star'};
+const ROUTES = {home:'الرئيسية',books:'الكتب',competitions:'المسابقات',announcements:'الإعلانات',visitors:'الزائرون',support:'الدعم الذكي',reception:'الاستقبال',dashboard:'لوحة التحكم'};
+const NAVICON = {home:'grid',books:'book',competitions:'trophy',announcements:'mega',visitors:'users',support:'chat',reception:'camera',dashboard:'star'};
 let route = 'home', token = 0;
 function routeFromHash(){ const seg = (location.hash||'').replace(/^#\/?/,'').split(/[\/?]/)[0]; return ROUTES[seg] ? seg : 'home'; }
 function go(r){ route = ROUTES[r] ? r : 'home'; try{ history.replaceState(null,'', route==='home' ? location.pathname+location.search : '#/'+route); }catch(e){} render(); window.scrollTo(0,0); }
-function setNav(){ $('#nav').innerHTML = Object.keys(ROUTES).map(k=>`<a href="#/${k==='home'?'':k}" class="${k===route?'on':''}" ${k===route?'aria-current="page"':''}>${ic(NAVICON[k])}${ROUTES[k]}</a>`).join(''); $('#nav').classList.remove('open'); $('#menuBtn').setAttribute('aria-expanded','false'); }
+function setNav(){ $('#nav').innerHTML = Object.keys(ROUTES).filter(k=>k!=='reception'||session).map(k=>`<a href="#/${k==='home'?'':k}" class="${k===route?'on':''}" ${k===route?'aria-current="page"':''}>${ic(NAVICON[k])}${ROUTES[k]}</a>`).join(''); $('#nav').classList.remove('open'); $('#menuBtn').setAttribute('aria-expanded','false'); }
 async function render(){
-  const my = ++token; setNav();
+  const my = ++token; setNav(); if(route!=='reception') rcStop(); if(route!=='support') voiceStop();
   document.title = (route==='home' ? '' : ROUTES[route]+' | ') + (S.settings ? S.settings.site_name : 'مكتبة الأمين الذكية');
   const app = $('#app');
   app.innerHTML = '<div class="skel"><div class="spin"></div>جارٍ التحميل...</div>';
@@ -583,6 +813,7 @@ const dlg = $('#dlg');
 function openDlg(html){ dlg.innerHTML = html; if(!dlg.open) dlg.showModal(); }
 function closeDlg(){ if(dlg.open) dlg.close(); }
 dlg.addEventListener('click', e=>{ if(e.target===dlg || e.target.closest('[data-act="dlg-close"]')) closeDlg(); });
+dlg.addEventListener('close', ()=>{ enStop(); });
 
 const bookForm = b => `<h3>${b?'تعديل كتاب':'إضافة كتاب'}</h3><form data-form="book"><input type="hidden" name="id" value="${b?b.id:''}"><div class="f2">
   <div><label class="l">الرقم العام</label><input class="field" name="accession_no" value="${esc(b&&b.accession_no)}"></div>
@@ -616,6 +847,17 @@ document.addEventListener('click', async e=>{
   const act = b.dataset.act, id = b.dataset.id;
   try{
     if(act==='retry') render();
+    else if(act==='voice-toggle'){ V.on ? voiceStop() : voiceStart(); }
+    else if(act==='rc-start') await rcStart();
+    else if(act==='rc-stop'){ rcStop(); const st=$('#rcStatus'); if(st) st.textContent=''; }
+    else if(act==='rc-flip'){ const P=rprefs(); store.set('reception',Object.assign({},P,{facing:P.facing==='user'?'environment':'user'})); const was=RC.running; rcStop(); render(); if(was) setTimeout(()=>rcStart(),400); }
+    else if(act==='person-add'){ EN.samples=[]; openDlg(personForm(null)); }
+    else if(act==='person-edit') openDlg(personForm(S.people.find(x=>x.id===id)));
+    else if(act==='person-faces'){ const p=S.people.find(x=>x.id===id); EN.samples=[]; openDlg(`<h3>إضافة صور لـ ${esc(p.full_name)}</h3><form data-form="faces"><input type="hidden" name="id" value="${p.id}">${enrollHTML()}<div class="err" id="derr" hidden></div><div class="btns"><button class="btn red" type="submit">حفظ البصمات</button><button class="btn line" type="button" data-act="dlg-close">إلغاء</button></div></form>`); }
+    else if(act==='person-delfaces'){ if(confirm('حذف كل بصمات هذا الشخص؟ لن يُتعرَّف عليه بعد ذلك.')){ await api('people?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:{face_descriptors:null,consent:false,consent_at:null}}); render(); toast('تم حذف البصمات'); } }
+    else if(act==='person-del'){ if(confirm('حذف هذا الشخص نهائيًا؟')){ await api('people?id=eq.'+encodeURIComponent(id),{method:'DELETE'}); render(); toast('تم الحذف'); } }
+    else if(act==='en-cam'){ try{ await loadFace(); EN.stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false}); const v=$('#enVideo'); v.srcObject=EN.stream; await v.play(); const sn=$('[data-act=en-snap]'); if(sn) sn.disabled=false; }catch(err){ toast(camErr(err)); } }
+    else if(act==='en-snap'){ const d = await faceOf($('#enVideo')); if(!d){ toast('لا يوجد وجه واضح، وجّه الوجه للكاميرا'); } else if(EN.samples.length>=10){ toast('وصلت للحد الأقصى (١٠ عينات)'); } else { EN.samples.push(d.map(x=>+x.toFixed(4))); enCount(); } }
     else if(act==='visit-again'){ S.justVisited=false; render(); }
     else if(act==='logout'){ await logout(); S.tab='ov'; toast('تم تسجيل الخروج'); render(); }
     else if(act==='book-add') openDlg(bookForm(null));
@@ -640,6 +882,7 @@ async function ask(q){
   S.chat.push({me:true,t:q},{typing:true}); drawChat();
   let r; try{ r = await chatReply(q); }catch(e){ r = 'حصلت مشكلة في الاتصال، جرّب تاني بعد قليل.'; }
   S.chat = S.chat.filter(m=>!m.typing); S.chat.push({t:r}); drawChat();
+  return r;
 }
 
 document.addEventListener('submit', async e=>{
@@ -676,6 +919,27 @@ document.addEventListener('submit', async e=>{
       if(recs.length>2000) throw new Error('الحد الأقصى 2000 كتاب في المرة الواحدة');
       for(let i=0;i<recs.length;i+=200) await api('books',{method:'POST',body:recs.slice(i,i+200),prefer:'return=minimal'});
       await loadBooks(true); closeDlg(); $('#booklist').innerHTML=bookListHTML(); toast('تم استيراد '+nf(recs.length)+' كتاب');
+    }
+    else if(type==='person'){
+      const n = EN.samples.length, consent = !!d.consent;
+      if(n && !consent) throw new Error('لا يمكن حفظ بصمة الوجه بدون تأكيد الموافقة');
+      const ok = n>0 && consent;
+      await api('people',{method:'POST',prefer:'return=minimal',body:{full_name:d.full_name.trim(),role:d.role,job_title:(d.job_title||'').trim()||null,greeting_first:(d.greeting_first||'').trim()||null,greeting_return:(d.greeting_return||'').trim()||null,consent:ok,consent_at:ok?new Date().toISOString():null,face_descriptors:n?EN.samples:null}});
+      enStop(); closeDlg(); S.tab='pp'; render(); toast('تمت إضافة الشخص');
+    }
+    else if(type==='person-edit'){
+      await api('people?id=eq.'+encodeURIComponent(d.id),{method:'PATCH',body:{full_name:d.full_name.trim(),role:d.role,job_title:(d.job_title||'').trim()||null,greeting_first:(d.greeting_first||'').trim()||null,greeting_return:(d.greeting_return||'').trim()||null}});
+      closeDlg(); render(); toast('تم حفظ التعديل');
+    }
+    else if(type==='faces'){
+      const p = S.people.find(x=>x.id===d.id); if(!EN.samples.length) throw new Error('التقط أو ارفع صورة واحدة على الأقل'); if(!d.consent) throw new Error('لا يمكن حفظ بصمة الوجه بدون تأكيد الموافقة');
+      const merged = (p.face_descriptors||[]).concat(EN.samples).slice(-10);
+      await api('people?id=eq.'+encodeURIComponent(d.id),{method:'PATCH',body:{face_descriptors:merged,consent:true,consent_at:p.consent?undefined:new Date().toISOString()}});
+      enStop(); closeDlg(); render(); toast('تم حفظ البصمات');
+    }
+    else if(type==='rprefs'){
+      store.set('reception',{returnHours:+d.returnHours,cooldownMin:Math.min(60,Math.max(1,+d.cooldownMin||5)),thresh:+d.thresh,voice:!!d.voice,log:!!d.log,countRepeats:!!d.countRepeats,facing:rprefs().facing});
+      toast('تم حفظ الإعدادات');
     }
     else if(type==='news'){ await api('announcements',{method:'POST',body:{title:d.title.trim(),body:(d.body||'').trim()||null,published:true},prefer:'return=minimal'}); S.news=null; render(); toast('تم نشر الإعلان'); }
     else if(type==='comp'){ if(d.end_date<d.start_date) throw new Error('تاريخ النهاية يجب أن يكون بعد البداية'); await api('competitions',{method:'POST',body:{title:d.title.trim(),description:(d.description||'').trim()||null,start_date:d.start_date,end_date:d.end_date},prefer:'return=minimal'}); S.comps=null; render(); toast('تمت إضافة المسابقة'); }
