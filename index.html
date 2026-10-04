@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -135,7 +134,7 @@ section.b{padding:56px 0}.tint{background:var(--blush)}
 .empty{text-align:center;padding:44px 18px;border:2px dashed var(--rose);border-radius:24px;color:var(--muted)}
 .empty b{display:block;color:var(--ink);font-family:'Readex Pro';font-size:1.1rem;margin-bottom:4px}
 
-.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:0 26px 44px -34px rgba(225,29,46,.5)}
+.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:0 26px 44px -34px rgba(225,29,46,.5);margin-bottom:18px}
 .card h3{font-size:1.1rem;margin-bottom:12px}
 .field{width:100%;border:2px solid var(--rose);border-radius:14px;padding:10px 16px;outline:0;background:#fff}
 .field:focus{border-color:var(--red)}textarea.field{resize:vertical;min-height:84px}
@@ -145,8 +144,6 @@ label.l{display:block;font-size:.84rem;font-weight:600;margin-bottom:4px}
 .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 .note{background:var(--sun-soft);color:#7A4B00;border-radius:14px;padding:10px 14px;font-size:.88rem;margin-bottom:14px}
 .err{background:var(--rose);color:var(--red-deep);border-radius:14px;padding:10px 14px;font-size:.9rem;margin-top:12px}
-.layout{display:grid;grid-template-columns:380px 1fr;gap:22px;align-items:start}
-@media(max-width:960px){.layout{grid-template-columns:1fr}}
 .thanks{text-align:center;padding:10px 0}.thanks .ok{width:64px;height:64px;border-radius:50%;background:var(--grad-sun);color:var(--red-deep);display:grid;place-items:center;margin:0 auto 10px}
 
 dialog{border:0;border-radius:24px;padding:22px;width:min(540px,94vw);max-height:92vh;overflow:auto;box-shadow:0 40px 80px -30px rgba(43,18,22,.6);color:var(--ink)}
@@ -176,19 +173,17 @@ dialog h3{margin-bottom:12px}
 .tab{text-align:start;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:10px 16px;font-weight:600;display:flex;gap:10px;align-items:center;color:var(--muted)}
 .tab.on{background:var(--grad);color:#fff;border-color:transparent;box-shadow:var(--shadow)}
 @media(max-width:860px){.admgrid{grid-template-columns:1fr}.tabs{flex-direction:row;overflow-x:auto;position:static;padding-bottom:6px}.tab{flex:none;white-space:nowrap}}
-.pn .card{margin-bottom:18px}
 .kp{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
 @media(max-width:760px){.kp{grid-template-columns:repeat(2,1fr)}}
 .kp div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
 .kp b{display:block;font-family:'Readex Pro';font-size:1.6rem;color:var(--red);line-height:1.2}.kp span{color:var(--muted);font-size:.86rem}
 .cols{display:flex;align-items:flex-end;gap:8px;height:130px;margin:6px 0}
 .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;height:100%;font-size:.72rem;color:var(--muted)}
-.col i{display:block;width:100%;max-width:34px;border-radius:9px 9px 4px 4px;background:var(--grad-sun)}.col.t i{background:var(--grad)}
+.col i{display:block;width:100%;max-width:34px;border-radius:99px 99px 4px 4px;background:var(--grad-sun)}.col.t i{background:var(--grad)}
 .tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.92rem}
 th{text-align:start;color:var(--muted);font-weight:600;font-size:.8rem;padding:8px 10px;border-bottom:2px solid var(--rose)}td{padding:10px;border-bottom:1px solid var(--line)}
 .rw{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--line);flex-wrap:wrap}.rw:first-of-type{border-top:0}
 .rw b{display:block;font-size:.95rem}.rw .s{color:var(--muted);font-size:.85rem}
-.soonlist{display:flex;flex-direction:column;gap:8px;margin-top:8px}.soonlist span{background:var(--blush);border-radius:12px;padding:8px 14px;font-size:.92rem}
 
 footer.foot{margin-top:20px;background:var(--grad);color:#fff}
 footer.foot .in{padding:28px 20px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center}
@@ -202,11 +197,9 @@ footer.foot .cr{background:rgba(255,255,255,.16);padding:7px 16px;border-radius:
 .rc video{width:100%;height:100%;object-fit:cover;display:block}
 .mir{transform:scaleX(-1)}
 .rcst{position:absolute;top:12px;inset-inline-start:12px;background:rgba(0,0,0,.5);color:#fff;border-radius:999px;padding:3px 13px;font-size:.8rem;z-index:2}
-.rcst:empty{display:none}
 .rcard{position:absolute;inset-inline:12px;bottom:12px;background:#fff;border-radius:22px;padding:12px 16px;display:flex;gap:12px;align-items:center;box-shadow:0 14px 30px -12px rgba(0,0,0,.55);z-index:2;animation:rise .5s both}
 .rcard .av{width:48px;height:48px;border-radius:15px;background:var(--grad-sun);display:grid;place-items:center;color:var(--red-deep);flex:none}
 .rcard b{display:block;font-family:'Readex Pro';line-height:1.35}.rcard small{color:var(--muted)}
-.rcard .pill{margin-inline-start:auto}
 .opt{display:flex;gap:12px;padding:12px;border:2px solid var(--rose);border-radius:16px;cursor:pointer;align-items:flex-start}
 .opt:has(input:checked){border-color:var(--red);background:var(--blush)}
 .opt b{display:block;font-size:.92rem}.opt span{color:var(--muted);font-size:.82rem}
@@ -228,7 +221,6 @@ section.b{padding:32px 0}.page-head{padding:26px 0 18px}.head{margin-bottom:14px
 .kp{gap:8px}.kp div{padding:10px;border-radius:14px}.kp b{font-size:1.25rem}.tab{padding:8px 13px;font-size:.86rem}
 footer.foot .in{padding:20px 14px}
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rise{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -249,15 +241,13 @@ footer.foot .in{padding:20px 14px}
 
 <dialog id="dlg"></dialog>
 <div class="toast" id="toast" role="status"></div>
-<noscript><div style="padding:30px;text-align:center">يلزم تفعيل جافاسكريبت لعرض الموقع.</div></noscript>
 
 <script>
-/* ================= الإعدادات ================= */
+/* ================= الإعدادات والربط ================= */
 const SB_URL = 'https://eyixmpzvqsmxtevwchhi.supabase.co';
 const SB_KEY = 'sb_publishable_sj46rj0N03ETRqqchfIPbw_TCGPCqlr';
 const PUB_COLS = 'id,accession_no,title,author,publisher,dewey,status,created_at';
 
-/* ================= أدوات ================= */
 const $ = (s, r=document) => r.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const nf = n => Number(n || 0).toLocaleString('ar-EG');
@@ -269,6 +259,7 @@ const fmtDate = d => new Date(d.length === 10 ? d+'T12:00:00' : d).toLocaleDateS
 const fmtTime = d => new Date(d).toLocaleTimeString('ar-EG',{hour:'numeric',minute:'2-digit'});
 const norm = s => String(s||'').toLowerCase().replace(/[\u064B-\u0652\u0640]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').trim();
 const safeUrl = u => /^https?:\/\//i.test(u||'') ? u : '';
+
 const mem = {};
 const store = {
   get(k,d){ try{ const v = localStorage.getItem('amin:'+k); return v ? JSON.parse(v) : (k in mem ? mem[k] : d); }catch(e){ return k in mem ? mem[k] : d; } },
@@ -277,9 +268,6 @@ const store = {
 };
 function toast(m){ const t=$('#toast'); if(!t) return; t.textContent=m; t.classList.add('show'); clearTimeout(toast.h); toast.h=setTimeout(()=>t.classList.remove('show'),2400); }
 
-const missedSeen = new Set(); let missedT = null;
-function logMissed(q){ q=(q||'').trim(); if(q.length<2||q.length>80) return; const k=norm(q); if(missedSeen.has(k)) return; missedSeen.add(k); api('missed_searches',{method:'POST',body:{q},prefer:'return=minimal',anon:true}).catch(()=>{}); }
-const STOPW = new Set(['كتاب','كتب','عن','هل','يوجد','عندكم','عندك','فيه','ابحث','عايز','اريد','اين','فين','ايه','في','من']);
 const IC = {
   book:'<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>',
   trophy:'<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
@@ -302,7 +290,7 @@ const DEWEY = {0:'عموميات',1:'الفلسفة',2:'الأديان',3:'ال�
 const DEF_SETTINGS = {site_name:'مكتبة الأمين الذكية', library_hours:'خلال اليوم الدراسي، حسب جدول الحصص الخاص بكل فصل.', borrowing_rules:'يمكن استعارة كتاب واحد في المرة الواحدة، ويُعاد خلال أسبوع.'};
 const PURPOSES = ['قراءة','استعارة كتاب','إرجاع كتاب','نشاط أو مسابقة','أخرى'];
 
-/* ================= الاتصال بـ Supabase ================= */
+/* ================= Supabase API ================= */
 let session = store.get('session', null);
 function setSession(s){ if(s){ s.expires_at = Date.now() + (s.expires_in||3600)*1000; } session = s; s ? store.set('session', s) : store.del('session'); }
 async function refresh(){
@@ -347,7 +335,7 @@ async function login(email, password){
     r = await fetch(SB_URL+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({email,password})});
     j = await r.json().catch(()=>({}));
   }catch(e){ throw new Error('تعذّر الاتصال بالإنترنت'); }
-  if(!r.ok) throw new Error(/invalid/i.test(j.error_description||j.msg||'') ? 'البريد أو كلمة السر غير صحيحة' : (j.error_description||j.msg||'تعذّر تسجيل الدخول'));
+  if(!r.ok) throw new Error('البريد أو كلمة السر غير صحيحة');
   setSession(j); S.role = null; S.verified = false;
   const role = await ensureRole();
   if(!role) throw new Error('هذا الحساب غير مصرّح له بالدخول');
@@ -358,8 +346,8 @@ async function logout(){
   setSession(null); S.verified = false; S.role = null; S.books = null; S.news = null;
 }
 
-/* ================= الحالة والتحميل ================= */
-const S = {books:null,news:null,comps:null,settings:null,stats:null,q:'',cat:'all',tab:'ov',verified:false,role:null,chat:[],justVisited:false};
+/* ================= الحالة والبيانات ================= */
+const S = {books:null,news:null,comps:null,settings:null,stats:null,q:'',cat:'all',tab:'ov',verified:false,role:null,chat:[],justVisited:false,people:[],pend:[]};
 async function loadStats(){ S.stats = await api('rpc/public_stats',{method:'POST',body:{},anon:true}); setChip(true); return S.stats; }
 async function loadBooks(force){ if(S.books && !force) return S.books; S.books = await api('books?select='+(session?'*':PUB_COLS)+'&order=created_at.desc&limit=2000',{anon:!session}); return S.books; }
 async function loadNews(force){ if(S.news && !force) return S.news; S.news = await api('announcements?select=*&order=created_at.desc&limit=60',{anon:!session}); return S.news; }
@@ -373,7 +361,7 @@ function setChip(ok){ const c=$('#chip'); if(!c) return; c.className = 'chip-s '
 const compState = c => { const t = todayStr(); return t < c.start_date ? 'soon' : t > c.end_date ? 'done' : 'on'; };
 const compLabel = {on:'جارية',soon:'قريبًا',done:'انتهت'};
 
-/* ================= مكوّنات ================= */
+/* ================= عناصر واجهة المستخدم ================= */
 const COVERS = [['#FF7A52','#E11D2E'],['#FFD65C','#FF9F1C','lt'],['#E11D2E','#7A0A1A'],['#FF8FA3','#E11D2E'],['#FFE08A','#FF6A4D','lt'],['#FF5A4F','#B80F25'],['#FFC22E','#E11D2E']];
 function cover(b){ let h=0; for(const ch of String(b.title)) h=(h*31+ch.charCodeAt(0))>>>0; const c=COVERS[h%COVERS.length];
   return `<div class="cover ${c[2]||''}" style="background:linear-gradient(150deg,${c[0]},${c[1]})"><span class="dw">${esc(b.dewey||'—')}</span><h4>${esc(b.title)}</h4></div>`; }
@@ -388,22 +376,22 @@ function shelfSVG(){
 function newsItem(n, adm){
   const d = new Date(n.created_at), u = safeUrl(n.source_url);
   return `<article class="news"><div class="date"><b>${d.toLocaleDateString('ar-EG',{month:'long'})}</b><span>${nf(d.getDate())}</span></div>
-  <div style="flex:1;min-width:0"><h3>${esc(n.title)} ${n.published===false?'<span class="pill wait">مسودة</span>':''}</h3><p>${esc(n.body)}</p>${u?`<a class="lnk" href="${esc(u)}" target="_blank" rel="noopener">المصدر</a>`:''}</div>
-  ${adm?`<div class="acts"><button class="mini" data-act="news-toggle" data-id="${n.id}">${n.published?'إخفاء':'نشر'}</button><button class="mini" data-act="news-del" data-id="${n.id}" aria-label="حذف">${ic('trash')}</button></div>`:''}</article>`;
+  <div style="flex:1;min-width:0"><h3>${esc(n.title)} ${n.published===false?'<span class="pill wait">مسودة</span>':''}</h3><p>${esc(n.body||'')}</p>${u?`<a class="lnk" href="${esc(u)}" target="_blank" rel="noopener">المصدر</a>`:''}</div>
+  ${adm?`<div class="acts"><button class="mini" data-act="news-toggle" data-id="${n.id}">${n.published?'إخفاء':'نشر'}</button><button class="mini" data-act="news-del" data-id="${n.id}">${ic('trash')}</button></div>`:''}</article>`;
 }
 function compItem(c, adm){
   const st = compState(c);
   return `<article class="comp ${st}"><div class="row"><h3>${esc(c.title)}</h3><span class="pill ${st}">${compLabel[st]}</span></div>
-  <p>${esc(c.description)}</p><small>من ${fmtDate(c.start_date)} إلى ${fmtDate(c.end_date)}</small>${adm?` <button class="mini" style="margin-inline-start:8px" data-act="comp-del" data-id="${c.id}">${ic('trash')} حذف</button>`:''}</article>`;
+  <p>${esc(c.description||'')}</p><small>من ${fmtDate(c.start_date)} إلى ${fmtDate(c.end_date)}</small>${adm?` <button class="mini" style="margin-inline-start:8px" data-act="comp-del" data-id="${c.id}">${ic('trash')} حذف</button>`:''}</article>`;
 }
 function bookCard(b){
   const adm = !!session && S.verified;
   const late = adm && b.status==='borrowed' && b.due_date && b.due_date < todayStr();
   return `<article class="book">${cover(b)}
-  <div class="meta"><b>${esc(b.title)}</b><span>${esc(b.author||'مؤلف غير محدد')}${b.accession_no?' · رقم عام '+esc(b.accession_no):''}</span></div>
-  ${adm && b.status==='borrowed' ? `<div class="who">معار لـ ${esc(b.borrower_name||'—')}${b.due_date?' · حتى '+fmtDate(b.due_date):''}</div>`:''}
+  <div class="meta"><b>${esc(b.title)}</b><span>${esc(b.author||'مؤلف غير محدد')}${b.accession_no?' · رقم '+esc(b.accession_no):''}</span></div>
+  ${adm && b.status==='borrowed' ? `<div class="who">معار لـ ${esc(b.borrower_name\vert{}\vert{}'—')}${b.due_date?' · حتى '+fmtDate(b.due_date):''}</div>`:''}
   <div class="foot"><span><span class="pill ${b.status==='borrowed'?'out':'free'}">${b.status==='borrowed'?'معار':'متاح'}</span> ${late?'<span class="pill late">متأخر</span>':''}</span>
-  ${adm?`<span class="acts">${b.status==='borrowed'?`<button class="mini" data-act="book-return" data-id="${b.id}">إرجاع</button>`:`<button class="mini" data-act="book-borrow" data-id="${b.id}">إعارة</button>`}<button class="mini" data-act="book-edit" data-id="${b.id}" aria-label="تعديل">${ic('edit')}</button><button class="mini" data-act="book-del" data-id="${b.id}" aria-label="حذف">${ic('trash')}</button></span>`:''}</div></article>`;
+  ${adm?`<span class="acts">${b.status==='borrowed'?`<button class="mini" data-act="book-return" data-id="${b.id}">إرجاع</button>`:`<button class="mini" data-act="book-borrow" data-id="${b.id}">إعارة</button>`}<button class="mini" data-act="book-edit" data-id="${b.id}">${ic('edit')}</button><button class="mini" data-act="book-del" data-id="${b.id}">${ic('trash')}</button></span>`:''}</div></article>`;
 }
 function filteredBooks(){
   const q = norm(S.q);
@@ -422,7 +410,7 @@ const errCard = m => `<div class="wrap" style="padding:50px 0"><div class="empty
 /* ================= الصفحات ================= */
 const pages = {};
 pages.home = async () => {
-  const [st, news, comps] = await Promise.all([loadStats().catch(()=>{setChip(false);return null}), loadNews().catch(()=>[]), loadComps().catch(()=>[])]);
+  const [st, news, comps] = await Promise.all([loadStats().catch(()=>null), loadNews().catch(()=>[]), loadComps().catch(()=>[])]);
   const s = st || {books:0,visitors_today:0,active_competitions:0};
   const latest = (news||[]).filter(n=>n.published!==false).slice(0,3);
   const act = (comps||[]).filter(c=>compState(c)!=='done').slice(0,3);
@@ -454,21 +442,25 @@ pages.home = async () => {
     <div><div class="head"><h2>المسابقات</h2><a class="btn line sm" href="#/competitions">عرض الكل</a></div>${act.map(c=>compItem(c)).join('')||'<div class="empty"><b>لا توجد مسابقات الآن</b>تابعنا قريبًا.</div>'}</div>
   </div></section>`;
 };
+
 pages.books = async () => {
   await loadBooks().catch(()=>[]);
   const adm = !!session && S.verified;
   return pageHead('فهرس الكتب','ابحث بعنوان الكتاب أو المؤلف أو الرقم العام، أو اختر التصنيف.')+`
   <section class="b" style="padding-top:18px"><div class="wrap">
-    <div class="tools"><label class="search-wide">${ic('search')}<input id="bq" value="${esc(S.q)}" placeholder="ابحث في الفهرس..." autocomplete="off" aria-label="بحث"></label>
+    <div class="tools"><label class="search-wide">${ic('search')}<input id="bq" value="${esc(S.q)}" placeholder="ابحث في الفهرس..." autocomplete="off"></label>
     ${adm?`<button class="btn red sm" data-act="book-add">${ic('plus')} إضافة كتاب</button><button class="btn line sm" data-act="book-import">${ic('up')} استيراد CSV</button>`:''}</div>
     <div class="cats" id="cats">${catsHTML()}</div>
     <div id="booklist" class="books">${bookListHTML()}</div>
   </div></section>`;
 };
+
 pages.competitions = async () => { const l = await loadComps().catch(()=>[]);
   return pageHead('المسابقات','شارك في مسابقات القراءة والرسم والأنشطة المدرسية.')+`<section class="b" style="padding-top:18px"><div class="wrap" style="max-width:820px">${l.map(c=>compItem(c)).join('')||'<div class="empty"><b>لا توجد مسابقات</b>سيتم الإعلان عنها قريبًا.</div>'}</div></section>`; };
+
 pages.announcements = async () => { const l = (await loadNews().catch(()=>[])).filter(n=>n.published!==false);
   return pageHead('الإعلانات','آخر أخبار المكتبة والأنشطة.')+`<section class="b" style="padding-top:18px"><div class="wrap" style="max-width:820px">${l.map(n=>newsItem(n)).join('')||'<div class="empty"><b>لا توجد إعلانات</b>ستظهر هنا عند نشرها.</div>'}</div></section>`; };
+
 pages.visitors = async () => {
   const body = S.justVisited
     ? `<div class="card thanks"><div class="ok">${ic('check')}</div><h3>تم تسجيل زيارتك</h3><p style="color:var(--muted)">أهلًا بك في مكتبة الأمين، نتمنى لك وقتًا ممتعًا.</p><div class="btns" style="justify-content:center"><button class="btn red" data-act="visit-again">تسجيل زيارة أخرى</button><a class="btn line" href="#/books">تصفّح الكتب</a></div></div>`
@@ -476,17 +468,19 @@ pages.visitors = async () => {
         <div class="full"><label class="l">الاسم *</label><input class="field" name="name" required minlength="2" maxlength="80" autocomplete="off"></div>
         <div><label class="l">الفصل</label><input class="field" name="class_name" maxlength="30" placeholder="مثال: 4/2"></div>
         <div><label class="l">سبب الزيارة</label><select class="field" name="purpose">${PURPOSES.map(p=>`<option>${p}</option>`).join('')}</select></div>
-        <div class="full"><button class="btn red" style="width:100%" type="submit">${ic('plus')} تسجيل الزيارة</button></div></div><div class="err" id="ferr" hidden></div></form>`;
+        <div class="full"><button class="btn red" style="width:100%" type="submit">${ic('plus')} تسجيل الزيارة</button></div></div></form>`;
   return pageHead('سجل الزائرين','سجّل اسمك وسبب الزيارة عند دخول المكتبة.')+`<section class="b" style="padding-top:18px"><div class="wrap" style="max-width:560px">${body}</div></section>`;
 };
+
 pages.support = async () => {
   if(!S.chat.length) S.chat.push({t:'أهلًا بك! أنا مساعد مكتبة الأمين. اسألني عن كتاب أو مسابقة أو قواعد الاستعارة.'});
   return pageHead('الدعم الذكي','اسأل عن كتاب أو مسابقة أو قواعد الاستعارة.')+`<section class="b" style="padding-top:18px"><div class="wrap" style="max-width:780px"><div class="chat">
-    <div class="chat-head"><span class="av">${ic('chat')}</span><div style="flex:1;min-width:0"><b>مساعد المكتبة</b><br><small>ميكروفون الكتابة: صوت المتصفح. «صوت متقدم»: محادثة حقيقية</small></div><button class="btn sun sm" id="liveBtn" data-act="live-toggle">${ic('mic')} صوت متقدم</button></div>
-    <div class="msgs" id="msgs" aria-live="polite">${chatHTML()}</div>
-    <div class="quick"><button data-q="ما المسابقات الجارية؟">ما المسابقات الجارية؟</button><button data-q="قواعد الاستعارة">قواعد الاستعارة</button><button data-q="مواعيد المكتبة">مواعيد المكتبة</button><button data-q="أحدث إعلان">أحدث إعلان</button></div>
-    <div class="vs" id="vs" hidden></div><form class="say" data-form="chat"><input name="q" placeholder="اكتب سؤالك هنا" autocomplete="off" aria-label="سؤالك"><button type="button" class="micb" id="micBtn" data-act="voice-toggle" aria-label="محادثة صوتية">${ic('mic')}</button><button type="submit" aria-label="إرسال">${ic('send')}</button></form></div></div></section>`;
+    <div class="chat-head"><span class="av">${ic('chat')}</span><div style="flex:1;min-width:0"><b>مساعد المكتبة</b></div></div>
+    <div class="msgs" id="msgs">${chatHTML()}</div>
+    <div class="quick"><button data-q="ما المسابقات الجارية؟">ما المسابقات الجارية؟</button><button data-q="قواعد الاستعارة">قواعد الاستعارة</button><button data-q="مواعيد المكتبة">مواعيد المكتبة</button></div>
+    <form class="say" data-form="chat"><input name="q" placeholder="اكتب سؤالك هنا" autocomplete="off"><button type="submit">${ic('send')}</button></form></div></div></section>`;
 };
+
 const chatHTML = () => S.chat.map(m=> m.typing ? `<div class="m bot"><span class="typing"><i></i><i></i><i></i></span></div>` : `<div class="m ${m.me?'me':'bot'}">${esc(m.t)}</div>`).join('');
 function drawChat(){ const el=$('#msgs'); if(!el) return; el.innerHTML=chatHTML(); el.scrollTop=el.scrollHeight; }
 async function chatReply(q){
@@ -495,422 +489,128 @@ async function chatReply(q){
   const act = comps.filter(c=>compState(c)!=='done');
   if(/مواعيد|ساعات|يفتح|مفتوح|وقت/.test(t)) return 'مواعيد المكتبة: '+st.library_hours;
   if(/استعار|اعار|استلاف|ارجاع/.test(t)) return st.borrowing_rules;
-  if(/مسابق/.test(t)) return act.length ? 'المسابقات الحالية:\n'+act.map(c=>`• ${c.title} (${compLabel[compState(c)]}) — حتى ${fmtDate(c.end_date)}`).join('\n') : 'لا توجد مسابقات حاليًا، تابعنا قريبًا.';
-  if(/اعلان|جديد|اخبار/.test(t)){ const n = news.filter(x=>x.published!==false)[0]; return n ? `${n.title}\n${n.body||''}` : 'لا توجد إعلانات الآن.'; }
-  if(/زائر|تسجيل|سجل/.test(t)) return 'تقدر تسجّل زيارتك من صفحة «الزائرون» بكتابة اسمك وفصلك وسبب الزيارة.';
-  if(/^(مرحبا|اهلا|السلام|هاي|صباح|مساء)/.test(t)) return 'أهلًا بك في مكتبة الأمين! اكتب اسم كتاب أو مؤلف وأنا أدوّر لك عليه.';
-  const words = t.replace(/[؟?!.،,:;"'()]/g,' ').split(/\s+/).filter(w=>w.length>1 && !STOPW.has(w));
+  if(/مسابق/.test(t)) return act.length ? 'المسابقات الحالية:\n'+act.map(c=>`• ${c.title} — حتى ${fmtDate(c.end_date)}`).join('\n') : 'لا توجد مسابقات حاليًا.';
+  const words = t.replace(/[؟?!.،,:;"'()]/g,' ').split(/\s+/).filter(w=>w.length>1);
   if(words.length){
-    const hits = books.filter(b=>{ const s=norm(b.title+' '+(b.author||'')); return words.every(w=>s.includes(w)); }).slice(0,5);
-    if(hits.length) return 'لقيت في الفهرس:\n'+hits.map(b=>`• ${b.title} — ${b.author||'مؤلف غير محدد'} (تصنيف ${b.dewey||'—'}) — ${b.status==='borrowed'?'معار حاليًا':'متاح'}`).join('\n');
-    if(books.length) logMissed(words.join(' '));
+    const hits = books.filter(b=>words.some(w=>norm(b.title+' '+(b.author||'')).includes(w))).slice(0,5);
+    if(hits.length) return 'نتائج الفهرس:\n'+hits.map(b=>`• ${b.title} — ${b.status==='borrowed'?'معار':'متاح'}`).join('\n');
   }
-  return 'ما لقيتش نتيجة مطابقة. جرّب تكتب جزء من عنوان الكتاب أو اسم المؤلف، أو اسأل عن المسابقات وقواعد الاستعارة.';
+  return 'يمكنك الاستفسار عن المواعيد، الإعارة، أو المسابقات المتاحة.';
 }
 
-/* ---------- لوحة التحكم ---------- */
+/* ================= لوحة التحكم ================= */
 const TABS = [['ov','نظرة عامة'],['vs','الزوار'],['ct','المحتوى'],['pp','الاستقبال والأشخاص'],['ai','Ai'],['ap','API والربط'],['st','إعدادات الموقع'],['sc','الأمان والبيانات']];
-const loginHTML = (m) => pageHead('لوحة التحكم','دخول المدير فقط.')+`<section class="adm" style="padding-top:0"><div class="wrap"><form class="card login" data-form="login"><span class="lock"><svg class="i" viewBox="0 0 24 24" style="width:28px;height:28px">${IC.lock}</svg></span>
-  <h2>دخول المدير</h2><p style="color:var(--muted)">اللوحة محمية بحسابك، وأي حساب آخر لن يتمكن من الدخول.</p>
-  <input class="field" name="email" type="email" placeholder="البريد الإلكتروني" aria-label="البريد" autocomplete="username" required>
-  <input class="field" name="password" type="password" placeholder="كلمة السر" aria-label="كلمة السر" autocomplete="current-password" required>
-  <button class="btn red" type="submit">دخول</button><div class="err" id="ferr" ${m?'':'hidden'}>${esc(m||'')}</div></form></div></section>`;
+const loginHTML = (m) => pageHead('لوحة التحكم','دخول المدير فقط.')+`<section class="adm" style="padding-top:0"><div class="wrap"><form class="card login" data-form="login"><span class="lock">${ic('lock')}</span>
+  <h2>دخول المدير</h2><p style="color:var(--muted)">اللوحة محمية بحسابك.</p>
+  <input class="field" name="email" type="email" placeholder="البريد الإلكتروني" required>
+  <input class="field" name="password" type="password" placeholder="كلمة السر" required>
+  <button class="btn red" type="submit">دخول</button>${m?`<div class="err">${esc(m)}</div>`:''}</form></div></section>`;
+
 pages.dashboard = async () => {
   if(!session) return loginHTML();
   const role = await ensureRole(); if(!role) return loginHTML('انتهت الجلسة، سجّل الدخول من جديد');
-  if(role!=='admin') return pageHead('لوحة التحكم','')+`<section class="b"><div class="wrap" style="max-width:520px"><div class="card" style="text-align:center"><h3>حساب الاستقبال</h3><p style="color:var(--muted)">هذا الحساب مخصص لجهاز الاستقبال ولا يملك صلاحية لوحة التحكم.</p><div class="btns" style="justify-content:center"><a class="btn red" href="#/reception">فتح الاستقبال</a><button class="btn out" data-act="logout">تسجيل الخروج</button></div></div></div></section>`;
   const inner = await tabHTML(S.tab);
-  return `<section class="adm"><div class="wrap"><div class="head"><div><h1 class="d" style="font-size:1.9rem">لوحة التحكم</h1><p style="color:var(--muted)">إدارة المحتوى والزوار وإعدادات الموقع.</p></div><button class="btn line sm" data-act="logout">خروج</button></div>
-  <div class="admgrid"><div class="tabs" role="tablist">${TABS.map(t=>`<button class="tab ${t[0]===S.tab?'on':''}" data-tab="${t[0]}">${t[1]}</button>`).join('')}</div><div class="pn">${inner}</div></div></div></section>`;
+  return `<section class="adm"><div class="wrap"><div class="head"><div><h1 class="d" style="font-size:1.9rem">لوحة التحكم</h1></div><button class="btn line sm" data-act="logout">خروج</button></div>
+  <div class="admgrid"><div class="tabs">${TABS.map(t=>`<button class="tab ${t[0]===S.tab?'on':''}" data-tab="${t[0]}">${t[1]}</button>`).join('')}</div><div class="pn">${inner}</div></div></div></section>`;
 };
 
 async function tabHTML(t){
   if(t==='ov'){
-    const t0 = new Date(); t0.setHours(0,0,0,0);
-    const w0 = new Date(t0); w0.setDate(w0.getDate()-6);
-    const m0 = new Date(t0); m0.setDate(m0.getDate()-29);
-    const iso = d => encodeURIComponent(d.toISOString());
-    const [books, borrowed, late, vToday, vWeek, vMonth, vAll, recent] = await Promise.all([
-      count('books?select=id').catch(()=>0), count('books?select=id&status=eq.borrowed').catch(()=>0), count('books?select=id&status=eq.borrowed&due_date=lt.'+todayStr()).catch(()=>0),
-      count('visitors?select=id&created_at=gte.'+iso(t0)).catch(()=>0), count('visitors?select=id&created_at=gte.'+iso(w0)).catch(()=>0), count('visitors?select=id&created_at=gte.'+iso(m0)).catch(()=>0), count('visitors?select=id').catch(()=>0),
-      api('visitors?select=created_at&created_at=gte.'+iso(w0)+'&limit=5000').catch(()=>[])]);
-    const days = [...Array(7)].map((_,i)=>{ const d=new Date(t0); d.setDate(d.getDate()-(6-i)); return {k:dayKey(d), l:d.toLocaleDateString('ar-EG',{weekday:'short'}), n:0}; });
-    (recent||[]).forEach(v=>{ const x = days.find(d=>d.k===dayKey(v.created_at)); if(x) x.n++; });
-    const mx = Math.max(1, ...days.map(d=>d.n));
-    return `<div class="kp"><div><b>${nf(books)}</b><span>إجمالي الكتب</span></div><div><b>${nf(borrowed)}</b><span>كتب معارة</span></div><div><b>${nf(late)}</b><span>إعارات متأخرة</span></div><div><b>${nf(vToday)}</b><span>زوار اليوم</span></div></div>
-    <div class="card"><h3>عدد الزوار</h3><div class="kp" style="margin-bottom:8px"><div><b>${nf(vToday)}</b><span>اليوم</span></div><div><b>${nf(vWeek)}</b><span>آخر ٧ أيام</span></div><div><b>${nf(vMonth)}</b><span>آخر ٣٠ يومًا</span></div><div><b>${nf(vAll)}</b><span>الإجمالي</span></div></div>
-    <div class="cols">${days.map((d,i)=>`<div class="col ${i===6?'t':''}"><b style="color:var(--ink)">${nf(d.n)}</b><i style="height:${Math.max(4,d.n/mx*100)}%"></i><span>${d.l}</span></div>`).join('')}</div></div>`;
+    const [books, borrowed, vToday] = await Promise.all([count('books?select=id').catch(()=>0), count('books?select=id&status=eq.borrowed').catch(()=>0), count('visitors?select=id').catch(()=>0)]);
+    return `<div class="kp"><div><b>${nf(books)}</b><span>إجمالي الكتب</span></div><div><b>${nf(borrowed)}</b><span>كتب معارة</span></div><div><b>${nf(vToday)}</b><span>إجمالي الزيارات</span></div></div>`;
   }
   if(t==='vs'){
     const l = await api('visitors?select=*&order=created_at.desc&limit=100').catch(()=>[]);
-    return `<div class="card"><div class="head" style="margin-bottom:10px"><h3 style="margin:0">آخر الزيارات</h3><button class="btn sun sm" data-act="export-visitors">${ic('down')} تصدير Excel</button></div>
-    ${l.length?`<div class="tw"><table><thead><tr><th>الاسم</th><th>الفصل</th><th>السبب</th><th>الوقت</th><th></th></tr></thead><tbody>${l.map(v=>`<tr><td><b>${esc(v.name)}</b></td><td>${esc(v.class_name||'—')}</td><td>${esc(v.purpose)}</td><td>${fmtDate(v.created_at)}<br><small style="color:var(--muted)">${fmtTime(v.created_at)}</small></td><td><button class="mini" data-act="visitor-del" data-id="${v.id}" aria-label="حذف">${ic('trash')}</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty"><b>لا توجد زيارات بعد</b>ستظهر هنا عند تسجيل أول زائر.</div>'}</div>`;
+    return `<div class="card"><div class="head"><h3 style="margin:0">آخر الزيارات</h3><button class="btn sun sm" data-act="export-visitors">${ic('down')} تصدير Excel</button></div>
+    ${l.length?`<div class="tw"><table><thead><tr><th>الاسم</th><th>الفصل</th><th>السبب</th><th>الوقت</th><th></th></tr></thead><tbody>${l.map(v=>`<tr><td><b>${esc(v.name)}</b></td><td>${esc(v.class_name||'—')}</td><td>${esc(v.purpose)}</td><td>${fmtDate(v.created_at)}</td><td><button class="mini" data-act="visitor-del" data-id="${v.id}">${ic('trash')}</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty"><b>لا توجد زيارات</b></div>'}</div>`;
   }
   if(t==='ct'){
     const [news, comps] = await Promise.all([loadNews(true).catch(()=>[]), loadComps(true).catch(()=>[])]);
-    return `<div class="card"><h3>الكتب</h3><p style="color:var(--muted);font-size:.92rem">إضافة وتعديل وحذف وإعارة وإرجاع واستيراد من Excel، من صفحة الكتب.</p><div class="btns"><a class="btn red sm" href="#/books">فتح إدارة الكتب</a></div></div>
-    <form class="card" data-form="news"><h3>نشر إعلان</h3><div class="f2"><div class="full"><label class="l">العنوان *</label><input class="field" name="title" required maxlength="150"></div>
+    return `<form class="card" data-form="news"><h3>نشر إعلان</h3><div class="f2"><div class="full"><label class="l">العنوان *</label><input class="field" name="title" required maxlength="150"></div>
     <div class="full"><label class="l">النص</label><textarea class="field" name="body" rows="3"></textarea></div></div><div class="btns"><button class="btn red" type="submit">${ic('mega')} نشر</button></div></form>
     <div class="card"><h3>الإعلانات الحالية</h3>${news.map(n=>newsItem(n,true)).join('')||'<small>لا توجد إعلانات</small>'}</div>
-    <form class="card" data-form="comp"><h3>إضافة مسابقة</h3><div class="f2"><div class="full"><label class="l">اسم المسابقة *</label><input class="field" name="title" required maxlength="150"></div>
-    <div class="full"><label class="l">الوصف</label><input class="field" name="description"></div>
+    <form class="card" data-form="comp"><h3>إضافة مسابقة</h3><div class="f2"><div class="full"><label class="l">اسم المسابقة *</label><input class="field" name="title" required></div>
     <div><label class="l">تبدأ في</label><input class="field" type="date" name="start_date" required value="${addDays(0)}"></div><div><label class="l">تنتهي في</label><input class="field" type="date" name="end_date" required value="${addDays(14)}"></div></div>
     <div class="btns"><button class="btn red" type="submit">${ic('trophy')} إضافة</button></div></form>
-    <div class="card"><h3>المسابقات الحالية</h3>${comps.map(c=>compItem(c,true)).join('')||'<small>لا توجد مسابقات</small>'}</div>`;
+    <div class="card"><h3>المسابقات</h3>${comps.map(c=>compItem(c,true)).join('')||'<small>لا توجد مسابقات</small>'}</div>`;
   }
   if(t==='pp') return await ppHTML();
-  if(t==='ai') return await aiHTML();
   if(t==='ap') return await apHTML();
   if(t==='st'){
     const s = await loadSettings(true);
     return `<form class="card" data-form="settings"><h3>إعدادات الموقع</h3><div class="f2">
-      <div class="full"><label class="l">اسم الموقع</label><input class="field" name="site_name" value="${esc(s.site_name)}" maxlength="80"></div>
+      <div class="full"><label class="l">اسم الموقع</label><input class="field" name="site_name" value="${esc(s.site_name)}"></div>
       <div class="full"><label class="l">مواعيد المكتبة</label><input class="field" name="library_hours" value="${esc(s.library_hours)}"></div>
       <div class="full"><label class="l">قواعد الاستعارة</label><input class="field" name="borrowing_rules" value="${esc(s.borrowing_rules)}"></div></div>
       <div class="btns"><button class="btn red" type="submit">حفظ الإعدادات</button></div></form>`;
   }
-  if(t==='sc') return `<form class="card" data-form="password"><h3>تغيير كلمة السر</h3><div class="f2"><div><label class="l">كلمة السر الجديدة</label><input class="field" type="password" name="p1" minlength="8" autocomplete="new-password" required></div>
-    <div><label class="l">تأكيد كلمة السر</label><input class="field" type="password" name="p2" minlength="8" autocomplete="new-password" required></div></div><div class="btns"><button class="btn red" type="submit">تغيير</button></div><div class="err" id="ferr" hidden></div></form>
-    <div class="card"><h3>البيانات</h3><div class="btns" style="margin-top:0"><button class="btn sun sm" data-act="export-books">${ic('down')} تصدير الكتب (Excel)</button><button class="btn sun sm" data-act="export-visitors">${ic('down')} تصدير الزائرين (Excel)</button><button class="btn sun sm" data-act="backup">${ic('down')} نسخة احتياطية كاملة</button></div></div>
-    <div class="card"><h3>حساب الاستقبال</h3><p style="color:var(--muted);font-size:.92rem">لجهاز الاستقبال استخدم حسابًا مخصصًا بصلاحيات محدودة بدل حسابك.</p></div>
-    <div class="card"><h3>الجلسة</h3><div class="btns" style="margin-top:0"><button class="btn out" data-act="logout">تسجيل الخروج</button></div></div>`;
+  if(t==='sc') return `<div class="card"><h3>البيانات والتصدير</h3><div class="btns"><button class="btn sun sm" data-act="export-books">${ic('down')} تصدير الكتب (Excel)</button><button class="btn sun sm" data-act="export-visitors">${ic('down')} تصدير الزائرين (Excel)</button></div></div>`;
   return '';
 }
 
-/* ================= الصوت (محادثة صوتية) ================= */
-const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-const V = {on:false, rec:null};
-let voices = [];
-function loadVoices(){ try{ voices = speechSynthesis.getVoices() || []; }catch(e){} }
-loadVoices(); try{ speechSynthesis.addEventListener('voiceschanged', loadVoices); }catch(e){}
-const pickVoice = () => voices.find(v=>/^ar[-_]EG/i.test(v.lang)) || voices.find(v=>/^ar/i.test(v.lang)) || null;
-function speak(text){
-  return new Promise(res=>{
-    try{
-      if(!('speechSynthesis' in window)) return res();
-      const u = new SpeechSynthesisUtterance(String(text).replace(/[•\n]+/g,'، '));
-      u.lang = 'ar-EG'; const v = pickVoice(); if(v) u.voice = v;
-      u.onend = u.onerror = () => res();
-      speechSynthesis.cancel(); speechSynthesis.speak(u);
-    }catch(e){ res(); }
-  });
+async function ppHTML(){
+  const ppl = await api('people?select=*&order=created_at.desc').catch(()=>[]);
+  S.people = ppl;
+  return `<div class="card"><div class="head"><h3 style="margin:0">الأشخاص والزوار المميزون</h3><button class="btn red sm" data-act="person-add">${ic('plus')} إضافة شخص</button></div>
+  ${ppl.length ? ppl.map(p=>`<div class="rw"><div><b>${esc(p.full_name)}</b><span class="s">${esc(p.job_title||'')}</span></div><div class="acts"><button class="mini" data-act="person-edit" data-id="${p.id}">${ic('edit')}</button><button class="mini" data-act="person-del" data-id="${p.id}">${ic('trash')}</button></div></div>`).join('') : '<div class="empty"><b>لا يوجد أشخاص مسجلون بعد</b></div>'}</div>`;
 }
-function listenOnce(){
-  return new Promise((res,rej)=>{
-    const r = new SR(); V.rec = r; r.lang = 'ar-EG'; r.interimResults = false; r.maxAlternatives = 1; let got = false;
-    r.onresult = e => { got = true; res(e.results[0][0].transcript); };
-    r.onerror = e => { if(!got) rej(e.error || 'error'); };
-    r.onend = () => { if(!got) rej('no-speech'); };
-    try{ r.start(); }catch(e){ rej('start-failed'); }
-  });
-}
-function setVS(t){ const x = $('#vs'); if(x){ x.hidden = !t; x.textContent = t || ''; } }
-async function voiceLoop(){
-  while(V.on){
-    setVS('أسمعك الآن...'); let text;
-    try{ text = await listenOnce(); }
-    catch(err){
-      if(!V.on) break;
-      if(err==='not-allowed'||err==='service-not-allowed'){ toast('اسمح باستخدام الميكروفون من إعدادات المتصفح'); break; }
-      if(err==='network'){ toast('التعرّف على الصوت يحتاج اتصالًا بالإنترنت'); break; }
-      await new Promise(r=>setTimeout(r,400)); continue;
-    }
-    if(!V.on) break;
-    setVS('بفكّر...'); const reply = await ask(text); if(!V.on) break;
-    setVS('بتكلم... المس الميكروفون لإيقافي'); await speak(reply);
-  }
-  voiceStop();
-}
-function voiceStart(){ if(!SR){ toast('المتصفح لا يدعم التعرّف على الصوت، جرّب Chrome'); return; } V.on = true; const m=$('#micBtn'); if(m) m.classList.add('on'); voiceLoop(); }
-function voiceStop(){ V.on = false; try{ V.rec && V.rec.abort(); }catch(e){} try{ speechSynthesis.cancel(); }catch(e){} setVS(''); const m=$('#micBtn'); if(m) m.classList.remove('on'); }
 
-/* ================= التعرّف على الوجوه ================= */
-const FACE_JS = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.js';
-const FACE_MODELS = ['https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model','https://raw.githubusercontent.com/vladmandic/face-api/master/model'];
-let faceP = null;
-function loadFace(){
-  if(faceP) return faceP;
-  faceP = (async()=>{
-    if(!window.faceapi){
-      await new Promise((ok,no)=>{ const s=document.createElement('script'); s.src=FACE_JS; s.onload=ok; s.onerror=()=>no(new Error('تعذّر تحميل مكتبة التعرّف على الوجوه')); document.head.appendChild(s); });
-    }
-    for(const base of FACE_MODELS){
-      try{ await Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri(base), faceapi.nets.faceLandmark68Net.loadFromUri(base), faceapi.nets.faceRecognitionNet.loadFromUri(base)]); return true; }catch(e){}
-    }
-    throw new Error('تعذّر تحميل نماذج التعرّف على الوجوه');
-  })().catch(e=>{ faceP = null; throw e; });
-  return faceP;
+async function apHTML(){
+  let set = await api('ai_settings?select=*&id=eq.1').catch(()=>[]);
+  const a = set[0] || {};
+  return `<form class="card" data-form="apset"><h3>إعدادات النموذج</h3>
+    <div class="f2"><div><label class="l">نموذج تحليل الأخبار والذكاء الإصطناعي</label><input class="field" name="analysis_model" value="${esc(a.analysis_model||'gemini-2.5-flash-lite')}" required></div></div>
+    <div class="btns"><button class="btn red" type="submit">حفظ الإعدادات</button></div></form>`;
 }
-async function faceOf(el){
-  const r = await faceapi.detectSingleFace(el, new faceapi.TinyFaceDetectorOptions({inputSize:320, scoreThreshold:0.5})).withFaceLandmarks().withFaceDescriptor();
-  return r ? Array.from(r.descriptor) : null;
-}
-function dist(a,b){ let s=0; for(let i=0;i<a.length;i++){ const d=a[i]-b[i]; s+=d*d; } return Math.sqrt(s); }
-function bestMatch(desc, people){
-  let best=null, bd=99;
-  for(const p of people){ for(const d of (p.face_descriptors||[])){ if(d.length!==desc.length) continue; const x=dist(desc,d); if(x<bd){ bd=x; best=p; } } }
-  return {person:best, distance:bd};
-}
-const camErr = e => e && e.name==='NotAllowedError' ? 'اسمح باستخدام الكاميرا من إعدادات المتصفح' : e && e.name==='NotFoundError' ? 'لا توجد كاميرا في هذا الجهاز' : (e && e.message) || 'تعذّر تشغيل الكاميرا';
 
-/* ---------- وضع الاستقبال ---------- */
-const RP_DEF = {returnHours:24, cooldownMin:5, voice:true, log:true, countRepeats:false, facing:'user', thresh:0.5};
-const rprefs = () => Object.assign({}, RP_DEF, store.get('reception',{}));
-const DEF_FIRST = 'أهلًا {الاسم}، نورت المكتبة', DEF_RET = 'مرحبًا مرة أخرى يا {الاسم}';
-const ROLES = {official:'مسؤول بالإدارة',supervisor:'موجه',teacher:'معلم',student:'طالب',parent:'ولي أمر',visitor:'زائر'};
-const RC = {stream:null,running:false,people:[],streak:{id:null,n:0},unk:0,lastGreet:{},lastUnknown:0,timer:null,wake:null,hide:null};
-function ago(ms){ const m=Math.max(1,Math.round(ms/60000)); if(m<60) return 'منذ '+nf(m)+' دقيقة'; const h=Math.round(m/60); return 'منذ '+nf(h)+' ساعة'; }
-function fillGreet(tpl,p,last){ return String(tpl).replace(/\{الاسم\}/g,p.full_name).replace(/\{الصفة\}/g,p.job_title||ROLES[p.role]||'').replace(/\{آخر_زيارة\}/g,last?ago(Date.now()-last):''); }
-function rcStop(){
-  RC.running=false; clearTimeout(RC.timer);
-  if(RC.stream){ RC.stream.getTracks().forEach(t=>t.stop()); RC.stream=null; }
-  if(RC.wake){ try{ RC.wake.release(); }catch(e){} RC.wake=null; }
-  const v=$('#rcVideo'); if(v) v.srcObject=null;
-  const a=$('#rcStart'), b=$('#rcStop'); if(a) a.hidden=false; if(b) b.hidden=true;
-}
-async function rcStart(){
-  const st=$('#rcStatus'), P=rprefs();
-  try{
-    st.textContent='جارٍ تحميل نماذج التعرّف...'; await loadFace();
-    st.textContent='جارٍ تحميل بيانات الأشخاص...';
-    const all = await api('people?select=id,full_name,role,job_title,greeting_first,greeting_return,face_descriptors,last_seen_at&consent=eq.true').catch(()=>[]);
-    RC.people = all.filter(p=>Array.isArray(p.face_descriptors) && p.face_descriptors.length);
-    st.textContent='جارٍ تشغيل الكاميرا...';
-    RC.stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:P.facing,width:{ideal:640},height:{ideal:480}},audio:false});
-    const v=$('#rcVideo'); v.srcObject=RC.stream; v.classList.toggle('mir', P.facing==='user'); await v.play();
-    try{ RC.wake = await navigator.wakeLock.request('screen'); }catch(e){}
-    RC.running=true; RC.streak={id:null,n:0}; RC.unk=0;
-    $('#rcStart').hidden=true; $('#rcStop').hidden=false;
-    st.textContent = RC.people.length ? 'الاستقبال يعمل' : 'الاستقبال يعمل (لا يوجد أشخاص مسجّلون بعد)';
-    rcLoop();
-  }catch(e){ rcStop(); if(st) st.textContent=''; toast(camErr(e)); }
-}
-async function rcLoop(){
-  if(!RC.running) return;
-  const v=$('#rcVideo'), P=rprefs();
-  try{
-    if(v && v.readyState>=2){
-      const desc = await faceOf(v);
-      if(desc){
-        const {person,distance} = bestMatch(desc, RC.people);
-        if(person && distance < P.thresh){
-          RC.unk=0; RC.streak = RC.streak.id===person.id ? {id:person.id,n:RC.streak.n+1} : {id:person.id,n:1};
-          if(RC.streak.n>=2) await rcGreet(person);
-        }else{ RC.streak={id:null,n:0}; RC.unk++; if(RC.unk>=3) rcUnknown(); }
-      }else{ RC.streak={id:null,n:0}; RC.unk=0; }
-    }
-  }catch(e){}
-  if(RC.running) RC.timer=setTimeout(rcLoop,600);
-}
-function showGreet(p,text,again){
-  const c=$('#rcCard'); if(!c) return;
-  c.innerHTML = `<span class="av">${ic('users')}</span><div><b>${esc(text)}</b><small>${p?esc(p.job_title||ROLES[p.role]||''):'أهلًا بك'}</small></div>${again?'<span class="pill soon">زيارة متكررة</span>':''}`;
-  c.hidden=false; clearTimeout(RC.hide); RC.hide=setTimeout(()=>{ c.hidden=true; }, 7000);
-}
-async function rcGreet(p){
-  const P=rprefs(), now=Date.now();
-  if(RC.lastGreet[p.id] && now-RC.lastGreet[p.id] < P.cooldownMin*60000) return;
-  RC.lastGreet[p.id]=now;
-  const last = p.last_seen_at ? new Date(p.last_seen_at).getTime() : 0;
-  const again = !!last && (now-last) < P.returnHours*3600000;
-  const text = fillGreet(again ? (p.greeting_return||DEF_RET) : (p.greeting_first||DEF_FIRST), p, last);
-  showGreet(p,text,again); if(P.voice) speak(text);
-  p.last_seen_at = new Date(now).toISOString();
-  try{
-    await api('rpc/kiosk_seen',{method:'POST',body:{p_id:p.id,p_returning:again,p_log:!!(P.log && (!again || P.countRepeats))}});
-  }catch(e){ toast('تعذّر حفظ الزيارة: '+e.message); }
-}
-function rcUnknown(){
-  const P=rprefs(), now=Date.now(); if(now-RC.lastUnknown < 25000) return; RC.lastUnknown=now;
-  const t='أهلًا بك في مكتبة الأمين'; showGreet(null,t,false);
-}
-pages.reception = async () => {
-  if(!(await ensureRole())) return pageHead('وضع الاستقبال','يرحّب بالزوار بأسمائهم عن طريق الكاميرا.')+`<section class="b" style="padding-top:18px"><div class="wrap" style="max-width:560px"><div class="card" style="text-align:center"><h3>يلزم تسجيل دخول المدير</h3><p style="color:var(--muted)">وضع الاستقبال يقرأ بصمات الوجوه المحمية، لذلك لا يعمل إلا بحسابك.</p><div class="btns" style="justify-content:center"><a class="btn red" href="#/dashboard">تسجيل الدخول</a></div></div></div></section>`;
-  const P=rprefs();
-  return pageHead('وضع الاستقبال','شغّل الكاميرا ودعها مفتوحة عند باب المكتبة، وسيرحّب بالزوار المسجّلين بأسمائهم.')+`<section class="b" style="padding-top:18px"><div class="wrap" style="max-width:560px">
-    <div class="rc"><video id="rcVideo" playsinline muted class="${P.facing==='user'?'mir':''}"></video><div class="rcst" id="rcStatus"></div><div class="rcard" id="rcCard" hidden></div></div>
-    <div class="btns" style="justify-content:center"><button id="rcStart" class="btn red" data-act="rc-start">${ic('camera')} تشغيل الكاميرا</button><button id="rcStop" class="btn out" data-act="rc-stop" hidden>إيقاف</button><button class="btn line" data-act="rc-flip">تبديل الكاميرا (${P.facing==='user'?'أمامية':'خلفية'})</button></div>
-    <div class="note" style="margin-top:14px">الصور لا تُحفظ ولا تُرسل لأي جهة، فالمعالجة تتم داخل الجهاز. تُقارَن الوجه بالبصمات المسجّلة فقط.</div>
-  </div></section>`;
-};
-
-/* ---------- إدارة الأشخاص وتسجيل البصمات ---------- */
+/* ================= التعرّف والأشخاص ================= */
 async function ensureRole(){
   if(!session) return null; if(S.role) return S.role;
   const a = await api('rpc/is_admin',{method:'POST',body:{}}).catch(()=>false);
   if(a===true){ S.role='admin'; S.verified=true; return 'admin'; }
-  const k = await api('rpc/is_kiosk',{method:'POST',body:{}}).catch(()=>false);
-  if(k===true){ S.role='kiosk'; return 'kiosk'; }
   await logout(); return null;
 }
-const EN = {samples:[], stream:null};
-function enStop(){ if(EN.stream){ EN.stream.getTracks().forEach(t=>t.stop()); EN.stream=null; } }
-function enCount(){ const x=$('#enCount'); if(x) x.textContent = nf(EN.samples.length)+' عينة. الأفضل ٣ إلى ٥ بزوايا وإضاءة مختلفة.'; }
-const enrollHTML = () => `<div class="enr"><label class="l" style="margin-top:14px">بصمة الوجه (اختياري، وتحتاج موافقة)</label>
-  <div class="vwrap"><video id="enVideo" playsinline muted class="mir"></video></div>
-  <div class="btns" style="margin-top:8px"><button type="button" class="btn line sm" data-act="en-cam">${ic('camera')} تشغيل الكاميرا</button><button type="button" class="btn sun sm" data-act="en-snap" disabled>التقاط</button><label class="btn line sm" style="cursor:pointer">${ic('up')} رفع صور<input type="file" id="enFiles" accept="image/*" multiple hidden></label></div>
-  <div id="enCount" style="color:var(--muted);font-size:.85rem;margin-top:6px">٠ عينة. الأفضل ٣ إلى ٥ بزوايا وإضاءة مختلفة.</div>
-  <label class="opt" style="margin-top:10px"><input type="checkbox" name="consent"><div><b>تم أخذ موافقة الشخص (أو ولي أمره إذا كان طالبًا)</b><span>لحفظ بصمة الوجه واستخدامها في الترحيب فقط.</span></div></label></div>`;
-const personForm = p => `<h3>${p?'تعديل بيانات الشخص':'إضافة شخص'}</h3><form data-form="${p?'person-edit':'person'}"><input type="hidden" name="id" value="${p?p.id:''}"><div class="f2">
-  <div class="full"><label class="l">الاسم *</label><input class="field" name="full_name" value="${esc(p&&p.full_name)}" required maxlength="100"></div>
-  <div><label class="l">الصفة</label><select class="field" name="role">${Object.keys(ROLES).map(k=>`<option value="${k}" ${p&&p.role===k?'selected':''}>${ROLES[k]}</option>`).join('')}</select></div>
-  <div><label class="l">الوظيفة / المسمى</label><input class="field" name="job_title" value="${esc(p&&p.job_title)}" maxlength="100"></div>
-  <div class="full"><label class="l">ترحيب الزيارة الأولى</label><input class="field" name="greeting_first" value="${esc(p&&p.greeting_first)}" placeholder="${DEF_FIRST}"></div>
-  <div class="full"><label class="l">ترحيب العودة خلال المدة</label><input class="field" name="greeting_return" value="${esc(p&&p.greeting_return)}" placeholder="${DEF_RET}"></div></div>
-  <div style="color:var(--muted);font-size:.82rem;margin-top:6px">المتغيرات: {الاسم} {الصفة} {آخر_زيارة}</div>
-  ${p?'':enrollHTML()}<div class="err" id="derr" hidden></div><div class="btns"><button class="btn red" type="submit">حفظ</button><button class="btn line" type="button" data-act="dlg-close">إلغاء</button></div></form>`;
-function personRow(p){
-  const n=(p.face_descriptors||[]).length;
-  return `<div class="rw"><div style="flex:1;min-width:170px"><b>${esc(p.full_name)}</b><span class="s">${ROLES[p.role]||''}${p.job_title?' — '+esc(p.job_title):''}${p.last_seen_at?' · آخر زيارة '+fmtDate(p.last_seen_at):''}</span></div>
-  <span class="pill ${n?'free':'wait'}">${n?nf(n)+' عينة':'بدون بصمة'}</span>
-  <span class="acts"><button class="mini" data-act="person-faces" data-id="${p.id}">${ic('camera')} صور</button><button class="mini" data-act="person-edit" data-id="${p.id}" aria-label="تعديل">${ic('edit')}</button>${n?`<button class="mini" data-act="person-delfaces" data-id="${p.id}">حذف البصمات</button>`:''}<button class="mini" data-act="person-del" data-id="${p.id}" aria-label="حذف">${ic('trash')}</button></span></div>`;
-}
-async function ppHTML(){
-  const ppl = await api('people?select=id,full_name,role,job_title,greeting_first,greeting_return,consent,face_descriptors,last_seen_at,created_at&order=created_at.desc&limit=500').catch(()=>[]);
-  S.people = ppl; const P = rprefs();
-  return `<div class="card"><div class="head" style="margin-bottom:8px"><h3 style="margin:0">الأشخاص المسجّلون</h3><div class="acts"><button class="btn red sm" data-act="person-add">${ic('plus')} إضافة شخص</button><a class="btn line sm" href="#/reception">${ic('camera')} وضع الاستقبال</a></div></div>
-  <div class="note">الصور لا تُحفظ، يُحفظ فقط تمثيل رقمي للوجه ولا يقرأه غيرك.</div>
-  ${ppl.length ? ppl.map(personRow).join('') : '<div class="empty"><b>لا يوجد أشخاص بعد</b>أضف أول شخص لتبدأ.</div>'}</div>
-  <form class="card" data-form="rprefs"><h3>إعدادات الاستقبال</h3><div class="f2">
-    <div><label class="l">اعتباره عائدًا لو رجع خلال</label><select class="field" name="returnHours">${[12,24,48].map(h=>`<option value="${h}" ${P.returnHours===h?'selected':''}>${nf(h)} ساعة</option>`).join('')}</select></div>
-    <div><label class="l">عدم تكرار الترحيب قبل (دقائق)</label><input class="field" type="number" min="1" max="60" name="cooldownMin" value="${P.cooldownMin}"></div>
-    <div><label class="l">دقة التعرّف</label><select class="field" name="thresh">${[[0.45,'صارمة'],[0.5,'متوازنة'],[0.55,'متساهلة']].map(x=>`<option value="${x[0]}" ${P.thresh===x[0]?'selected':''}>${x[1]}</option>`).join('')}</select></div>
-    <label class="opt"><input type="checkbox" name="voice" ${P.voice?'checked':''}><div><b>ترحيب صوتي</b><span>ينطق الترحيب بصوت الجهاز</span></div></label>
-    <label class="opt"><input type="checkbox" name="log" ${P.log?'checked':''}><div><b>تسجيل الزيارة تلقائيًا</b><span>في سجل الزائرين</span></div></label>
-    <label class="opt"><input type="checkbox" name="countRepeats" ${P.countRepeats?'checked':''}><div><b>عدّ الزيارات المتكررة</b></div></label></div>
-    <div class="btns"><button class="btn red" type="submit">حفظ</button></div></form>`;
-}
-const loadImg = f => new Promise((ok,no)=>{ const u=URL.createObjectURL(f), i=new Image(); i.onload=()=>{ ok(i); }; i.onerror=()=>no(new Error('صورة غير صالحة')); i.src=u; });
-document.addEventListener('change', async e=>{
-  if(e.target.id!=='enFiles') return;
-  try{ await loadFace(); }catch(err){ toast(err.message); return; }
-  let ok=0, bad=0;
-  for(const f of e.target.files){ try{ const d = await faceOf(await loadImg(f)); if(d && EN.samples.length<10){ EN.samples.push(d.map(x=>+x.toFixed(4))); ok++; } else bad++; }catch(err){ bad++; } }
-  enCount(); toast(ok ? 'تمت إضافة '+nf(ok)+' عينة'+(bad?' وتعذّر '+nf(bad):'') : 'لم يتم العثور على وجه واضح');
-});
 
-/* ================= Ai: الوكيل ================= */
-async function fn(action){
-  await fresh();
-  let r, j = {};
-  try{ r = await fetch(SB_URL+'/functions/v1/agent',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+session.access_token,'Content-Type':'application/json'},body:JSON.stringify({action})}); }
-  catch(e){ throw new Error('تعذّر الوصول لدالة Ai.'); }
-  try{ j = await r.json(); }catch(e){}
-  if(!r.ok && !j.error) throw new Error('خطأ في الدالة ('+r.status+')');
-  return j;
-}
-function pendItem(n){
-  return `<article class="news"><div class="date"><b>${esc(n.category||'عام')}</b><span>${nf(n.relevance||0)}</span></div><div style="flex:1;min-width:0"><h3>${esc(n.draft_title||n.title)}</h3><p>${esc(n.summary||'')}</p>
-  <div class="acts" style="margin-top:8px"><button class="btn red sm" data-act="news-pub" data-id="${n.id}">نشر</button><button class="btn line sm" data-act="news-ign" data-id="${n.id}">تجاهل</button></div></div></article>`;
-}
-async function publishNews(id, over){
-  const it = (S.pend||[]).find(x=>x.id===id); if(!it) throw new Error('الخبر غير موجود');
-  const title = ((over && over.title) || it.draft_title || it.title).trim().slice(0,150);
-  const body = ((over && over.body) || it.draft_body || it.summary || '').trim() || null;
-  const ann = await api('announcements',{method:'POST',body:{title,body,published:true,source_url:safeUrl(it.url)||null},prefer:'return=representation'});
-  await api('news_items?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:{status:'published',announcement_id:ann[0].id,decided_at:new Date().toISOString()}});
-  S.news = null;
-}
-async function aiHTML(){
-  let set=[], pend=[], srcs=[], logs=[];
-  try{
-    [set, pend, srcs, logs] = await Promise.all([
-      api('ai_settings?select=*&id=eq.1').catch(()=>[]),
-      api('news_items?select=*,sources(name)&status=eq.pending&order=created_at.desc&limit=50').catch(()=>[]),
-      api('sources?select=*&order=created_at.desc&limit=100').catch(()=>[]),
-      api('agent_log?select=*&order=created_at.desc&limit=15').catch(()=>[])]);
-  }catch(e){}
-  const a = set[0] || {}; S.ai = a; S.pend = pend; S.srcs = srcs;
-  return `<div class="card"><div class="head" style="margin-bottom:8px"><h3 style="margin:0">حالة Ai</h3><span class="pill ${a.paused?'wait':'on'}">${a.paused?'متوقف مؤقتًا':'يعمل'}</span></div>
-    <div class="btns" style="margin-top:0"><button class="btn red sm" data-act="ai-run">تشغيل Ai الآن</button></div></div>
-  <div class="card"><h3>بانتظار قرارك</h3>${pend.map(pendItem).join('')||'<div class="empty"><b>لا توجد أخبار بانتظارك</b></div>'}</div>`;
-}
-async function apHTML(){
-  let set = await api('ai_settings?select=*&id=eq.1').catch(()=>[]);
-  const a = set[0] || {}; S.ai = a;
-  return `<form class="card" data-form="apset"><h3>إعدادات API</h3>
-    <div class="f2"><div><label class="l">نموذج تحليل الأخبار</label><input class="field" name="analysis_model" value="${esc(a.analysis_model||'gemini-2.5-flash')}" required></div></div>
-    <div class="btns"><button class="btn red" type="submit">حفظ</button></div></form>`;
-}
+const personForm = p => `<h3>${p?'تعديل بيانات الشخص':'إضافة شخص'}</h3><form data-form="person"><input type="hidden" name="id" value="${p?p.id:''}"><div class="f2">
+  <div class="full"><label class="l">الاسم *</label><input class="field" name="full_name" value="${esc(p&&p.full_name)}" required></div>
+  <div><label class="l">الصفة / المسمى</label><input class="field" name="job_title" value="${esc(p&&p.job_title)}"></div>
+  <div class="full"><label class="l">جملة الترحيب</label><input class="field" name="greeting_first" value="${esc(p&&p.greeting_first)}" placeholder="أهلاً بك في المكتبة"></div></div>
+  <div class="btns" style="margin-top:14px"><button class="btn red" type="submit">حفظ</button><button class="btn line" type="button" data-act="dlg-close">إلغاء</button></div></form>`;
 
-/* ================= محادثة Gemini Live الصوتية ================= */
-const LV = {on:false, busy:false, session:null, mic:null, ctxIn:null, ctxOut:null, node:null, next:0, sources:new Set(), timer:null, buf:[], bufLen:0, cur:{}, last:null};
-function f32to16(f){ const o=new Int16Array(f.length); for(let i=0;i<f.length;i++){ const x=Math.max(-1,Math.min(1,f[i])); o[i]=x<0?x*0x8000:x*0x7FFF; } return o; }
-function downsample(buf,from,to){ if(to>=from) return buf; const r=from/to, n=Math.floor(buf.length/r), out=new Float32Array(n); for(let i=0;i<n;i++){ const a=Math.floor(i*r), b=Math.min(buf.length,Math.floor((i+1)*r)); let s=0; for(let j=a;j<b;j++) s+=buf[j]; out[i]=s/Math.max(1,b-a); } return out; }
-function b64FromI16(i16){ const u8=new Uint8Array(i16.buffer,i16.byteOffset,i16.byteLength); let bin=''; for(let i=0;i<u8.length;i+=0x8000) bin+=String.fromCharCode.apply(null,u8.subarray(i,i+0x8000)); return btoa(bin); }
+const bookForm = b => `<h3>${b?'تعديل كتاب':'إضافة كتاب'}</h3><form data-form="book"><input type="hidden" name="id" value="${b?b.id:''}"><div class="f2">
+  <div><label class="l">الرقم العام</label><input class="field" name="accession_no" value="${esc(b&&b.accession_no)}"></div>
+  <div><label class="l">رقم التصنيف العشري</label><input class="field" name="dewey" value="${esc(b&&b.dewey)}"></div>
+  <div class="full"><label class="l">عنوان الكتاب *</label><input class="field" name="title" value="${esc(b&&b.title)}" required></div>
+  <div><label class="l">المؤلف</label><input class="field" name="author" value="${esc(b&&b.author)}"></div>
+  <div><label class="l">الناشر</label><input class="field" name="publisher" value="${esc(b&&b.publisher)}"></div></div>
+  <div class="btns" style="margin-top:14px"><button class="btn red" type="submit">حفظ</button><button class="btn line" type="button" data-act="dlg-close">إلغاء</button></div></form>`;
 
-async function liveMic(){
-  LV.mic = await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
-  const AC = window.AudioContext || window.webkitAudioContext; LV.ctxIn = new AC(); try{ await LV.ctxIn.resume(); }catch(e){}
-  const src = LV.ctxIn.createMediaStreamSource(LV.mic), rate = LV.ctxIn.sampleRate;
-  const send = f32 => {
-    if(!LV.on || !LV.session) return;
-    const d = downsample(f32, rate, 16000); LV.buf.push(d); LV.bufLen += d.length;
-    if(LV.bufLen >= 1600){ const all=new Float32Array(LV.bufLen); let o=0; for(const c of LV.buf){ all.set(c,o); o+=c.length; } LV.buf=[]; LV.bufLen=0; LV.session.sendRealtimeInput({audio:{data:b64FromI16(f32to16(all)),mimeType:'audio/pcm;rate=16000'}}); }
-  };
-  try{
-    const code="class P extends AudioWorkletProcessor{process(i){const c=i[0]&&i[0][0];if(c)this.port.postMessage(c.slice(0));return true}}registerProcessor('pcm-tap',P)";
-    const url = URL.createObjectURL(new Blob([code],{type:'application/javascript'})); await LV.ctxIn.audioWorklet.addModule(url); URL.revokeObjectURL(url);
-    const node = new AudioWorkletNode(LV.ctxIn,'pcm-tap');
-    node.port.onmessage = e => send(e.data);
-    const silence = LV.ctxIn.createGain(); silence.gain.value = 0;
-    src.connect(node); node.connect(silence); silence.connect(LV.ctxIn.destination);
-    LV.node = node;
-  }catch(e){
-    const node = LV.ctxIn.createScriptProcessor(4096,1,1); node.onaudioprocess = ev => send(new Float32Array(ev.inputBuffer.getChannelData(0))); src.connect(node); node.connect(LV.ctxIn.destination); LV.node = node;
-  }
-}
-function liveStop(){
-  LV.on = false; clearTimeout(LV.timer);
-  try{ LV.session && LV.session.close(); }catch(e){} LV.session = null;
-  try{ LV.node && LV.node.disconnect(); }catch(e){} LV.node = null;
-  if(LV.mic){ LV.mic.getTracks().forEach(t=>t.stop()); LV.mic = null; }
-  try{ LV.ctxIn && LV.ctxIn.close(); }catch(e){} LV.ctxIn = null;
-}
+const dlg = $('#dlg');
+function openDlg(html){ if(!dlg) return; dlg.innerHTML = html; if(!dlg.open) dlg.showModal(); }
+function closeDlg(){ if(dlg && dlg.open) dlg.close(); }
+if(dlg){ dlg.addEventListener('click', e=>{ if(e.target===dlg || e.target.closest('[data-act="dlg-close"]')) closeDlg(); }); }
 
-/* ================= المسار والتحميل ================= */
+/* ================= التنقل والتفاعل ================= */
 const ROUTES = {home:'الرئيسية',books:'الكتب',competitions:'المسابقات',announcements:'الإعلانات',visitors:'الزائرون',support:'الدعم الذكي',reception:'الاستقبال',dashboard:'لوحة التحكم'};
 const NAVICON = {home:'grid',books:'book',competitions:'trophy',announcements:'mega',visitors:'users',support:'chat',reception:'camera',dashboard:'star'};
 let route = 'home', token = 0;
 function routeFromHash(){ const seg = (location.hash||'').replace(/^#\/?/,'').split(/[\/?]/)[0]; return ROUTES[seg] ? seg : 'home'; }
 function go(r){ route = ROUTES[r] ? r : 'home'; try{ history.replaceState(null,'', route==='home' ? location.pathname+location.search : '#/'+route); }catch(e){} render(); window.scrollTo(0,0); }
-function setNav(){ const el=$('#nav'); if(el) el.innerHTML = Object.keys(ROUTES).filter(k=>(k!=='reception'||session) && (S.role!=='kiosk'||k==='reception')).map(k=>`<a href="#/${k==='home'?'':k}" class="${k===route?'on':''}" ${k===route?'aria-current="page"':''}>${ic(NAVICON[k])}${ROUTES[k]}</a>`).join(''); }
+function setNav(){ const el=$('#nav'); if(el) el.innerHTML = Object.keys(ROUTES).map(k=>`<a href="#/${k==='home'?'':k}" class="${k===route?'on':''}">${ic(NAVICON[k])}${ROUTES[k]}</a>`).join(''); }
 
 async function render(){
   const my = ++token;
-  if(session && !S.role){ try{ await ensureRole(); }catch(e){} }
-  if(S.role==='kiosk' && route!=='reception') route='reception';
-  setNav(); if(route!=='reception') rcStop(); if(route!=='support'){ voiceStop(); liveStop(); }
+  setNav();
   document.title = (route==='home' ? '' : ROUTES[route]+' | ') + (S.settings ? S.settings.site_name : 'مكتبة الأمين الذكية');
-  const app = $('#app');
-  if(!app) return;
+  const app = $('#app'); if(!app) return;
   app.innerHTML = '<div class="skel"><div class="spin"></div>جارٍ التحميل...</div>';
   loadSettings().catch(()=>{});
   try{ const html = await pages[route](); if(my!==token) return; app.innerHTML = html; }
   catch(e){ if(my!==token) return; app.innerHTML = errCard(e.message); setChip(false); }
 }
 
-/* ================= الأحداث ================= */
-const menuBtn = $('#menuBtn'); if(menuBtn) menuBtn.addEventListener('click',()=>{ const o=$('#nav').classList.toggle('open'); menuBtn.setAttribute('aria-expanded',o); });
-window.addEventListener('hashchange',()=>{ const r=routeFromHash(); if(r!==route){ route=r; render(); window.scrollTo(0,0); } });
-
+/* ================= إدارة الأحداث النقر والنماذج ================= */
 document.addEventListener('input', e=>{ if(e.target.id==='bq'){ S.q=e.target.value; const l=$('#booklist'); if(l) l.innerHTML=bookListHTML(); } });
-
-const dlg = $('#dlg');
-function openDlg(html){ if(!dlg) return; dlg.innerHTML = html; if(!dlg.open) dlg.showModal(); }
-function closeDlg(){ if(dlg && dlg.open) dlg.close(); }
-if(dlg){
-  dlg.addEventListener('click', e=>{ if(e.target===dlg || e.target.closest('[data-act="dlg-close"]')) closeDlg(); });
-  dlg.addEventListener('close', ()=>{ enStop(); });
-}
-
-const bookForm = b => `<h3>${b?'تعديل كتاب':'إضافة كتاب'}</h3><form data-form="book"><input type="hidden" name="id" value="${b?b.id:''}"><div class="f2">
-  <div><label class="l">الرقم العام</label><input class="field" name="accession_no" value="${esc(b&&b.accession_no)}"></div>
-  <div><label class="l">رقم التصنيف العشري</label><input class="field" name="dewey" value="${esc(b&&b.dewey)}" inputmode="decimal" placeholder="مثال: 821"></div>
-  <div class="full"><label class="l">عنوان الكتاب *</label><input class="field" name="title" value="${esc(b&&b.title)}" required></div>
-  <div><label class="l">المؤلف</label><input class="field" name="author" value="${esc(b&&b.author)}"></div>
-  <div><label class="l">الناشر</label><input class="field" name="publisher" value="${esc(b&&b.publisher)}"></div></div>
-  <div class="err" id="derr" hidden></div><div class="btns"><button class="btn red" type="submit">حفظ</button><button class="btn line" type="button" data-act="dlg-close">إلغاء</button></div></form>`;
 
 document.addEventListener('click', async e=>{
   const a = e.target.closest('a[href^="#"]');
@@ -918,19 +618,44 @@ document.addEventListener('click', async e=>{
   const cat = e.target.closest('[data-cat]'); if(cat){ S.cat=cat.dataset.cat; $('#cats').innerHTML=catsHTML(); $('#booklist').innerHTML=bookListHTML(); return; }
   const tab = e.target.closest('[data-tab]'); if(tab){ S.tab=tab.dataset.tab; render(); return; }
   const qk = e.target.closest('[data-q]'); if(qk){ ask(qk.dataset.q); return; }
+  
   const b = e.target.closest('[data-act]'); if(!b) return;
   const act = b.dataset.act, id = b.dataset.id;
   try{
     if(act==='retry') render();
-    else if(act==='voice-toggle'){ V.on ? voiceStop() : voiceStart(); }
-    else if(act==='rc-start') await rcStart();
-    else if(act==='rc-stop'){ rcStop(); }
-    else if(act==='person-add'){ EN.samples=[]; openDlg(personForm(null)); }
     else if(act==='book-add') openDlg(bookForm(null));
+    else if(act==='book-edit'){ const bk = S.books.find(x=>x.id===id); openDlg(bookForm(bk)); }
+    else if(act==='book-del'){ if(confirm('هل تريد حذف هذا الكتاب؟')){ await api('books?id=eq.'+encodeURIComponent(id),{method:'DELETE'}); S.books=null; toast('تم حذف الكتاب'); render(); } }
     else if(act==='book-borrow'){
-      const bk=S.books.find(x=>x.id===id); openDlg(`<h3>إعارة «${esc(bk.title)}»</h3><form data-form="borrow"><input type="hidden" name="id" value="${id}"><div class="f2"><div class="full"><label class="l">اسم المستعير *</label><input class="field" name="borrower_name" required maxlength="80"></div><div class="full"><label class="l">تاريخ الإرجاع</label><input class="field" type="date" name="due_date" value="${addDays(7)}"></div></div><div class="err" id="derr" hidden></div><div class="btns"><button class="btn red" type="submit">تأكيد الإعارة</button><button class="btn line" type="button" data-act="dlg-close">إلغاء</button></div></form>`);
+      const name = prompt('اسم المستعير:');
+      if(name){
+        await api('books?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:{status:'borrowed',borrower_name:name,due_date:addDays(7)}});
+        S.books=null; toast('تم إعارة الكتاب'); render();
+      }
     }
-    else if(act==='logout'){ await logout(); S.tab='ov'; toast('تم تسجيل الخروج'); render(); }
+    else if(act==='book-return'){
+      await api('books?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:{status:'available',borrower_name:null,due_date:null}});
+      S.books=null; toast('تم إرجاع الكتاب'); render();
+    }
+    else if(act==='person-add') openDlg(personForm(null));
+    else if(act==='person-edit') openDlg(personForm(S.people.find(x=>x.id===id)));
+    else if(act==='person-del'){ if(confirm('حذف هذا الشخص؟')){ await api('people?id=eq.'+encodeURIComponent(id),{method:'DELETE'}); toast('تم الحذف'); render(); } }
+    else if(act==='news-toggle'){ const n = S.news.find(x=>x.id===id); await api('announcements?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:{published:!n.published}}); S.news=null; toast('تم التحديث'); render(); }
+    else if(act==='news-del'){ if(confirm('حذف هذا الإعلان؟')){ await api('announcements?id=eq.'+encodeURIComponent(id),{method:'DELETE'}); S.news=null; toast('تم الحذف'); render(); } }
+    else if(act==='comp-del'){ if(confirm('حذف المسابقة؟')){ await api('competitions?id=eq.'+encodeURIComponent(id),{method:'DELETE'}); S.comps=null; toast('تم الحذف'); render(); } }
+    else if(act==='visitor-del'){ await api('visitors?id=eq.'+encodeURIComponent(id),{method:'DELETE'}); toast('تم حذف الزيارة'); render(); }
+    else if(act==='visit-again'){ S.justVisited=false; render(); }
+    else if(act==='export-visitors'){
+      const data = await api('visitors?select=*&order=created_at.desc');
+      const csv = 'data:text/csv;charset=utf-8,الاسم,الفصل,السبب,التاريخ\n'+data.map(v=>`"${v.name}","${v.class_name||''}","${v.purpose}","${v.created_at}"`).join('\n');
+      window.open(encodeURI(csv));
+    }
+    else if(act==='export-books'){
+      const data = await api('books?select=*');
+      const csv = 'data:text/csv;charset=utf-8,الرقم العام,العنوان,المؤلف,التصنيف,الحالة\n'+data.map(x=>`"${x.accession_no||''}","${x.title}","${x.author||''}","${x.dewey||''}","${x.status}"`).join('\n');
+      window.open(encodeURI(csv));
+    }
+    else if(act==='logout'){ await logout(); toast('تم تسجيل الخروج'); render(); }
   }catch(err){ toast(err.message); }
 });
 
@@ -939,7 +664,6 @@ async function ask(q){
   S.chat.push({me:true,t:q},{typing:true}); drawChat();
   let r; try{ r = await chatReply(q); }catch(e){ r = 'حدث خطأ في الاتصال.'; }
   S.chat = S.chat.filter(m=>!m.typing); S.chat.push({t:r}); drawChat();
-  return r;
 }
 
 document.addEventListener('submit', async e=>{
@@ -948,20 +672,28 @@ document.addEventListener('submit', async e=>{
   try{
     if(type==='hero-search'){ S.q = d.q||''; S.cat='all'; go('books'); }
     else if(type==='chat'){ f.reset(); ask(d.q); }
-    else if(type==='login'){ await login(d.email.trim(), d.password); S.tab='ov'; render(); toast('أهلًا بك'); }
-    else if(type==='visitor'){
-      await api('visitors',{method:'POST',body:{name:d.name.trim(),class_name:(d.class_name||'').trim()||null,purpose:d.purpose,source:'form'},prefer:'return=minimal',anon:true});
-      S.justVisited=true; render();
+    else if(type==='visitor'){ await api('visitors',{method:'POST',body:{name:d.name.trim(),class_name:d.class_name.trim()||null,purpose:d.purpose}}); S.justVisited=true; render(); }
+    else if(type==='login'){ await login(d.email.trim(), d.password); render(); toast('أهلًا بك'); }
+    else if(type==='book'){
+      const body = {title:d.title.trim(),author:d.author.trim()||null,publisher:d.publisher.trim()||null,dewey:d.dewey.trim()||null,accession_no:d.accession_no.trim()||null};
+      if(d.id) await api('books?id=eq.'+encodeURIComponent(d.id),{method:'PATCH',body});
+      else await api('books',{method:'POST',body});
+      S.books=null; closeDlg(); toast('تم حفظ الكتاب'); render();
     }
-    else if(type==='borrow'){
-      await api('books?id=eq.'+encodeURIComponent(d.id),{method:'PATCH',body:{status:'borrowed',borrower_name:d.borrower_name.trim(),due_date:d.due_date||null}});
-      await loadBooks(true); closeDlg(); $('#booklist').innerHTML=bookListHTML(); toast('تم تسجيل الإعارة');
+    else if(type==='person'){
+      const body = {full_name:d.full_name.trim(),job_title:d.job_title.trim()||null,greeting_first:d.greeting_first.trim()||null};
+      if(d.id) await api('people?id=eq.'+encodeURIComponent(d.id),{method:'PATCH',body});
+      else await api('people',{method:'POST',body});
+      closeDlg(); toast('تم الحفظ'); render();
     }
+    else if(type==='news'){ await api('announcements',{method:'POST',body:{title:d.title.trim(),body:d.body.trim()||null,published:true}}); S.news=null; toast('تم نشر الإعلان'); render(); }
+    else if(type==='comp'){ await api('competitions',{method:'POST',body:{title:d.title.trim(),start_date:d.start_date,end_date:d.end_date}}); S.comps=null; toast('تمت إضافة المسابقة'); render(); }
+    else if(type==='settings'){ await api('settings?id=eq.1',{method:'PATCH',body:{site_name:d.site_name,library_hours:d.library_hours,borrowing_rules:d.borrowing_rules}}); toast('تم حفظ الإعدادات'); render(); }
+    else if(type==='apset'){ await api('ai_settings?id=eq.1',{method:'PATCH',body:{analysis_model:d.analysis_model.trim()}}); toast('تم حفظ نموذج الـ AI'); }
   }catch(err){ toast(err.message); }
 });
 
-/* ================= البداية ================= */
-if('serviceWorker' in navigator && /^https?:/.test(location.protocol)){ window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
+window.addEventListener('hashchange',()=>{ const r=routeFromHash(); if(r!==route){ route=r; render(); window.scrollTo(0,0); } });
 route = routeFromHash();
 render();
 </script>
